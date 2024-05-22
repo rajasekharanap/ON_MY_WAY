@@ -1,0 +1,39 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+<header class="working_header">
+    <h1 class="working_title">How it works</h1>
+    <p class="working_subtitle">Carpooling between cities is easy, safe and convenient.</p>
+</header>
+
+<div class="working_container">
+    <div class="working_section">
+        <i class="fas fa-user-friends fa-3x"></i>
+        <h3>For Passengers</h3>
+        <p>Find a ride, book and go. It's affordable and convenient.</p>
+        <a href="/find"><button class="working_button">Find a ride</button></a>
+        <br>
+        <a href="/find"> or find out more...</a>
+    </div>
+    <div class="working_section">
+        <i class="fas fa-car fa-3x"></i>
+        <h3>For Drivers</h3>
+        <p>Fill your seats with friendly passengers to cover your costs.</p>
+        <a href="/post" ><button class="working_button">Post a trip</button></a>
+        <br>
+        <a href="/post"> or find out more...</a>
+    </div>
+</div>
+<div class="working_bottom-container">
+    <div class="working_half1">
+        <img src="{% static 'images/working.jpg' %}" alt="Carpooling Image" class="working_image">
+    </div>
+    <div class="working_half2">
+        <div class="working_text-container">
+            <h2>Why Carpooling?</h2>
+            <p>Carpooling reduces traffic congestion, lowers emissions, and saves money on fuel and parking. It's also a great way to meet new people and make friends.</p>
+        </div>
+    </div>
+</div>
+{% endblock %} 

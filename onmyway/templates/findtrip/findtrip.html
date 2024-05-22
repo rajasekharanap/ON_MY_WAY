@@ -1,0 +1,93 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+<div class="findtrip_container">
+    <h1 class="findtrip_heading">Find a Ride</h1>
+    <h4 class="findtrip_text">Enter your origin and destination and away you go!</h4>
+    <br>
+    <form class="findtrip_form" method="POST">
+        {% csrf_token %}
+        <label for="from">Starting Point:</label>
+        <input type="text" id="from" name="from" placeholder="Enter your origin">
+        <br>
+        <label for="to">Ending Point:</label>
+        <input type="text" id="to" name="to" placeholder="Enter your destination">
+        <br>
+        <!-- <label for="leaving">Departure Date (optional):</label>
+        <input type="date" id="leaving" name="leaving">
+        <br> -->
+        <button type="submit" class="findtrip_searchbutton">Search</button>
+    </form>
+</div>
+<div class="findtrip_content" id="posted-content">
+    {% if trip_details %}
+        {% for trip in trip_details %}
+            {% with car_image=car_images|first %}
+                <div class="findtrip_details-container">
+                    <div class="findtrip_driver-details">
+                        <div class="findtrip_driver-photo">
+                            {% if trip.driver.profilepicture %}
+                                <img src="{{ trip.driver.profilepicture.url }}" alt="Profile Photo" class="findtrip_profile-photo">
+                            {% else %}
+                                <div class="default-profile-photo"></div> <!-- Add a default placeholder if no profile photo is available -->
+                            {% endif %}
+                        </div>
+                        <div class="findtrip_driver-info">
+                            <h3>{{ trip.driver.fullname }}</h3>
+                            <p>Rating: 4.0 {{ trip.driver.rating }}</p>
+                        </div>
+                    </div>
+                    <div class="findtrip_trip-details">
+                        <p>{{ trip.startingpoint }} to {{ trip.endpoint }}</p>
+                        <p>Leaving {{ trip.departuredate }} at {{ trip.departuretime }}</p>
+                        <!-- <p>Returning {{ trip.returndate }} {{ trip.returntime }}</p>
+                        <br>
+                        <p>Pickup Point: {{ trip.pickuppoint }}</p>
+                        <p>Dropoff Point: {{ trip.dropoffpoint }}</p> -->
+                        <!-- <p>Returning tomorrow at 10.30am</p>
+                        <br>
+                        <p>Pickup Points: Kochi, Aluva</p>
+                        <p>Dropoff Point: Bengalure Central, Salem</p> -->
+                    </div>
+                    <div class="findtrip_additional-details">
+                        {% if trip.car %}
+                        <img src="{{ trip.car.image1.url }}" alt="Car Photo" class="findtrip_car-photo">
+                        <p>Car Model: {{ trip.car.carmodelname }}</p>
+                        <p>Seating Capacity: {{ trip.car.seatingcapacity }}</p>
+                        {% else %}
+                        <p>No car details available for this trip.</p>
+                        {% endif %}
+                        <!-- <img src="{{ car_image }}" alt="Car Photo" class="findtrip_car-photo"> -->
+                        <p>Pets Allowed: {{ trip.pets }}</p>
+                        <p>Luggage Size: {{ trip.luggagesize }}</p>
+                    </div>
+                    <div class="findtrip_cost-details">
+                        <p>Cost Per Seat: ₹{{ trip.seatprice }}</p>
+                        <p>Seats Available: {{ trip.emptyseats }}</p>
+                        <a href="{% url 'book' %}?trip_id={{ trip.id }}"><button type="button" class="findtrip_bookbutton">Book Trip</button></a>
+                    </div>
+                </div>
+                <br>
+            {% endwith %}
+        {% endfor %}
+    {% else %}
+        {% if request.method == 'POST' %}
+        <p>No matching trips found.</p>
+        {% endif %}
+    {% endif %}
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var startingPointSearch = document.querySelector('#from');
+      var endingPointSearch = document.querySelector('#to');
+      var options = {
+          types: ['geocode'],
+          componentRestrictions: { country: 'in' } // Restrict to India
+      };
+  
+      var startingPointSearchAutocomplete = new google.maps.places.Autocomplete(startingPointSearch, options);
+      var endingPointSearchAutocomplete = new google.maps.places.Autocomplete(endingPointSearch, options);
+  });
+</script>
+{% endblock %}

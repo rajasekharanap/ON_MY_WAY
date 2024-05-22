@@ -1,0 +1,57 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+    <div class="findtrip_details-container">
+        <div class="findtrip_driver-details">
+            <div class="findtrip_driver-photo">
+                {% if selected_trip.driver.profilepicture %}
+                    <img src="{{ selected_trip.driver.profilepicture.url }}" alt="Profile Photo" class="findtrip_profile-photo">
+                {% else %}
+                    <div class="default-profile-photo"></div> <!-- Add a default placeholder if no profile photo is available -->
+                {% endif %}
+            </div>
+            <div class="findtrip_driver-info">
+                <h3>{{ selected_trip.driver.fullname }}</h3>
+                <p>Rating: 4.0 {{ selected_trip.driver.rating }}</p>
+            </div>
+        </div>
+        <div class="findtrip_trip-details">
+            <p>{{ selected_trip.startingpoint }} to {{ selected_trip.endpoint }}</p>
+            <p>Leaving {{ selected_trip.departuredate }} at {{ selected_trip.departuretime }}</p>
+        </div>
+        <div class="findtrip_additional-details">
+            {% if selected_trip.car %}
+                <img src="{{ selected_trip.car.image1.url }}" alt="Car Photo" class="findtrip_car-photo">
+                <p>Car Model: {{ selected_trip.car.carmodelname }}</p>
+                <p>Seating Capacity: {{ selected_trip.car.seatingcapacity }}</p>
+            {% else %}
+                <p>No car details available for this trip.</p>
+            {% endif %}
+            <p>Pets Allowed: {{ selected_trip.pets }}</p>
+            <p>Luggage Size: {{ selected_trip.luggagesize }}</p>
+        </div>
+        <div class="findtrip_cost-details">
+            <p>Cost Per Seat: ₹{{ selected_trip.seatprice }}</p>
+            <p>Seats Available: {{ selected_trip.emptyseats }}</p>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <div class="booking_container">
+        <h2 class="booking_heading">Select Number of Seats to Book</h2>
+        <form class="booking_form" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="trip_id" value="{{ selected_trip.id }}">
+            <label for="no_seats">Number of Seats:</label>
+            <input type="number" id="no_seats" name="no_seats" min="1" max="{{ selected_trip.emptyseats }}" required>
+            <br>
+            <button type="submit" class="booking_button">Book Now</button>
+        </form>
+    </div>
+{% endblock %}

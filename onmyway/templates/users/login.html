@@ -1,0 +1,54 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+<div class="login_row">
+    <div class="login_containerleft">
+      <div class="login_loginform">
+        <h1 class="login_heading">Find a reliable ride or share your empty seat with us...</h1>
+        <p class="login_about">
+          Join our trusted carpooling community for reliable rides and eco-friendly commuting solutions. Share rides, reduce emissions, and make a positive impact on your commute.
+        </p>
+      </div>
+    </div>
+    <div class="login_containerright">
+      <div class="login_loginform">
+        <h1 class="login_heading">Login</h1>
+        {% for message in messages %}
+        <div class="login_alert alert-{{ messages.tags }}">{{ message }}
+          <button class="login_close_btn" aria-label="Close">×</button>
+        </div>
+        {% endfor %}
+        <form action="{% url 'login' %}?next={{ request.path }}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.GET.next }}">
+          <label class="login_label" for="email" >Email:</label>
+          <input class="login_input" type="text" name="email" id="email" placeholder="Email" required>
+          <label class="login_label" for="password" >Password:</label>
+          <input class="login_input" type="password" name="password" id="password" placeholder="Password" required>
+          <button class="login_submit" type="submit">Login</button>
+        </form>
+      </div>
+      <h3 class="login_forgot"><a href="/forgotpassword/">Forgot password?</a></h3>
+      <h3 class="login_account">Don't have an account?</h3>
+      <h1 class="login_register"><a href="/register/">Register Here</a></h1>
+    </div>
+</div>
+
+<script>
+  // To close the error message
+  const closeButtons = document.querySelectorAll('.login_close_btn');
+  // Add event listener to each close button
+  closeButtons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        // Find the parent alert div and remove it
+        const alertDiv = btn.closest('.login_alert');
+        if (alertDiv) {
+            alertDiv.parentNode.removeChild(alertDiv);
+        }
+    });
+});
+</script>
+
+{% endblock %}
+  

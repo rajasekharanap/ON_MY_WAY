@@ -1,0 +1,111 @@
+/* working.html styles*/
+/* working.html styles*/
+.working_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .working_header h1{
+    color:#2581c7;
+    margin-bottom: 5px;
+  }
+  .working_header p{
+    color:#4e6475;
+    margin-top:5px;
+  }
+  .working_container {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .working_section {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color:lavender;
+    width: 45%;
+  }
+  
+  .working_section i {
+    color: #2581c7;
+    margin-bottom: 10px;
+  }
+  
+  .working_section h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .working_section a {
+    font-size: 18px;
+    line-height: 1.5;
+    text-decoration: none;
+  }
+
+  .working_button {
+    background-color:  #2581c7;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .working_button:hover {
+    background-color: white;
+    color: #2581c7;
+  }
+  
+  
+  .working_bottom-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: lavender;
+    padding: 20px;
+  }
+  
+  .working_half1 {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .working_half2 {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+  }
+  
+  
+  .working_image {
+    width: 100%;
+    border-radius: 10px;
+    padding-top: 20px 0px;
+  }
+  
+  .working_text-container {
+    padding: 20px 50px 20px 100px;
+    align-items: center;
+  }
+  
+  .working_text-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .working_text-container p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+/* working.html styles*/
+/* working.html styles*/
+  
+  

@@ -1,0 +1,86 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="userprofile_container">
+        <div>
+            <button id="posted-trips-btn" class="userprofile_btn active" onclick="toggleContent('posted')">Posted Trips</button>
+            <button id="booked-trips-btn" class="userprofile_btn" onclick="toggleContent('booked')">Booked Trips</button>
+        </div>
+        <button class="userprofile_logout"><a href="{% url 'user_logout' %}">Logout</a></button>
+    </div>
+    <div class="userprofile_content" id="posted-content">
+        <h3>Posted Trips List</h3>
+        {% if posted_trips %}
+            {% for trip in posted_trips %}
+                {% with car_image=car_images|first %}
+                    <div class="userprofile_trip-container">
+                        <div class="userprofile_trip-details">
+                            <p>{{ trip.startingpoint }} to {{ trip.endpoint }}</p>
+                            <p>Leaving {{ trip.departuredate }} at {{ trip.departuretime }}</p>
+                        </div>
+                        <div class="userprofile_additional-details">
+                            <img src="{{ car_image }}" alt="Car Photo" class="userprofile_car-photo">
+                            <p>Pets Allowed: {{ trip.pets }}</p>
+                            <p>Luggage Size: {{ trip.luggagesize }}</p>
+                        </div>
+                        <div class="userprofile_cost-details">
+                            <p>Cost Per Seat: ₹{{ trip.seatprice }}</p>
+                            <p>Seats Available: {{ trip.emptyseats }}</p>
+                        </div>
+                    </div>
+                    <br>
+                {% endwith %}
+            {% endfor %}
+        {% else %}
+        <p>You have not shared a ride yet</p>
+        {% endif %}
+    </div>
+    <div class="userprofile_content" id="booked-content" style="display: none;">
+        <h3>Booked Trips List</h3>
+        {% if booked_trip_details %}
+        {% for combined_trip in booked_trip_details %}
+            <div class="userprofile_trip-container">
+                <div class="userprofile_trip-details">
+                    <p>{{ combined_trip.booked_trip.driver.fullname }}'s trip: {{ combined_trip.booked_trip.booking_date }}</p>
+                    <p>Starting Point: {{ combined_trip.trip_details.startingpoint }}</p>
+                    <p>Endpoint: {{ combined_trip.trip_details.endpoint }}</p>
+                    <p>Departure Date: {{ combined_trip.trip_details.departuredate }}</p>
+                    <p>Departure Time: {{ combined_trip.trip_details.departuretime }}</p>
+                </div>
+                <div class="userprofile_additional-details">
+                    <!-- Add additional details as needed -->
+                </div>
+                <div class="userprofile_cost-details">
+                    <p>Total Price: ₹{{ combined_trip.booked_trip.total_price }}</p>
+                    <p>Number of Seats: {{ combined_trip.booked_trip.no_seats }}</p>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    {% else %}
+        <p>You have not booked any trips yet</p>
+    {% endif %}
+    </div>
+
+    <script>
+        function toggleContent(contentId) {
+            var postedContent = document.getElementById('posted-content');
+            var bookedContent = document.getElementById('booked-content');
+            var postedBtn = document.getElementById('posted-trips-btn');
+            var bookedBtn = document.getElementById('booked-trips-btn');
+    
+            if (contentId === 'posted') {
+                postedContent.style.display = 'block';
+                bookedContent.style.display = 'none';
+                postedBtn.classList.add('active');
+                bookedBtn.classList.remove('active');
+            } else if (contentId === 'booked') {
+                postedContent.style.display = 'none';
+                bookedContent.style.display = 'block';
+                postedBtn.classList.remove('active');
+                bookedBtn.classList.add('active');
+            }
+        }
+    </script>
+{% endblock %}

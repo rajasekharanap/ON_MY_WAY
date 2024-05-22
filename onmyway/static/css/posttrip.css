@@ -1,0 +1,143 @@
+/* Styles of posttrip.html   */
+/* Styles of posttrip.html   */
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+  .posttrip_container {
+    display: flex;
+    flex-direction: row;
+  }
+  .posttrip_left-section, .posttrip_right-section {
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  .posttrip_left-section {
+    margin-top: 50px;
+    margin-left: 50px; /* Center the left section */
+    margin-right: auto;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 50%; /* Set the width to 50% to keep it centered */
+  }
+  .posttrip_right-section {
+    margin-top: 150px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    height: 450px;
+  }
+  .posttrip_form {
+    border-radius: 20px; /* Adding border radius to the form */
+    padding: 20px;
+  }
+  
+  
+  .posttrip_form label {
+    display: block; /* Make labels display as block to occupy full width */
+  }
+  
+  .posttrip_form input[type="text"],
+  .posttrip_form input[type="date"],
+  .posttrip_form input[type="time"],
+  .posttrip_form input[type="number"],
+  .posttrip_form input[type="submit"]{
+  width: calc(100% - 22px); /* Adjusting input width to fit inside the form padding */
+  padding: 10px;
+  margin: 8px 0 20px; /* Adjusting margin for better spacing, added bottom margin */
+  border-radius: 10px; /* Adding border radius to input fields */
+}
+
+#departure-time {
+  width: 100%;/* Adjusting width to fit inside the form padding */
+  padding: 10px;
+  margin: 8px 0 20px; /* Adjusting margin for better spacing, added bottom margin */
+  border-radius: 10px; /* Adding border radius to input fields */
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+
+.posttrip_form #description {
+  height: 70px;
+}
+
+.posttrip_map {
+    width: 600px;
+    height: 500px;
+    display: block;
+    margin: 0 auto;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+  
+  .posttrip_luggage-row label,
+  .posttrip_pets-row label {
+    display:inline-block;
+    text-align: right;
+    margin-right: 10px; /* Adjust this value to decrease the gap */
+  }
+  
+  .posttrip_luggage-row select {
+    width: calc(100% - 170px); /* Adjusted width to match other input fields */
+    padding: 10px;
+    margin: 8px 0 20px;
+    border-radius: 10px;
+  }
+  
+  .posttrip_pets-row input[type="radio"] {
+    display: inline-block;
+    width: auto;
+    margin-right: 5px; /* Adjusted to decrease the gap */
+    cursor: pointer;
+  }
+  .posttrip_pets-row {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .posttrip_luggage-row{
+    width: 50%;
+  }
+ .posttrip_luggage-wrapper{
+    display: flex;
+    width: 100%;
+    align-content: center;
+    align-items: center;
+ }
+
+  .posttrip_post-trip-btn {
+    background-color: #2581c7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px; /* Adjusted margin-top */
+    display: block; /* Make the button a block element */
+    margin-left: auto; /* Center the button horizontally */
+    margin-right: auto;
+}
+.posttrip_post-trip-btn:hover {
+  opacity: 0.8;
+}
+
+.posttrip_heading{
+    margin-left: 280px;
+    color: #2581c7;
+}
+.posttrip_route-info {
+  margin-left: 50px; /* Add some left margin */
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Styles of posttrip.html   */
+/* Styles of posttrip.html   */

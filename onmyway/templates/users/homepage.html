@@ -1,0 +1,113 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="homepage_header">
+        <div class="homepage_container">
+            <h1>Rideshare with ON MY WAY</h1>
+            <p>Save money, reduce traffic, and make new connections on your commute.</p>
+        </div>
+    </div>
+    <main>
+        <section class="homepage_hero">
+            <img src="{% static 'images/carpool.jpg' %}" alt="People carpooling and smiling">
+            <div class="homepage_hero-text">
+                <h2>Travel smarter and greener.</h2>
+                <p>Carpooling is a great way to save money on gas, reduce your carbon footprint, and make new friends along the way. With ON MY WAY, it's easy to find carpool matches that fit your schedule and route.</p>
+                <a href="#" class="homepage_btn">Download the App Now</a>
+            </div>
+        </section>
+        <section class="homepage_benefits">
+            <h2 class="homepage_heading">Benefits of Carpooling with ON MY WAY</h2>
+            <div class="homepage_benefit">
+                <h3>Save Money</h3>
+                <p>Splitting gas and tolls can significantly reduce your commuting costs.</p>
+            </div>
+            <div class="homepage_benefit">
+                <h3>Reduce Traffic</h3>
+                <p>Fewer cars on the road means less congestion and faster commutes for everyone.</p>
+            </div>
+            <div class="homepage_benefit">
+                <h3>Be Eco-Friendly</h3>
+                <p>Carpooling helps to reduce greenhouse gas emissions and your impact on the environment.</p>
+            </div>
+            <div class="homepage_benefit">
+                <h3>Make New Connections</h3>
+                <p>Meet new people who share your interests and turn your commute into a social experience.</p>
+            </div>
+        </section>
+        <section class="homepage_how-it-works">
+            <h2 class="homepage_heading">How ON MY WAY Works?</h2>
+            <div class="homepage_steps">
+                <div class="homepage_row">
+                    <div class="homepage_step">
+                        <h3>1. Sign Up</h3>
+                        <p>Create a free account and enter your profile information.</p>
+                    </div>
+                    <div class="homepage_step">
+                        <h3>2. Find a Ride or Offer One</h3>
+                        <p>Search for carpools that match your commute or post your own ride offer.</p>
+                    </div>
+                </div>
+                <div class="homepage_row">
+                    <div class="homepage_step">
+                        <h3>3. Connect with Drivers/Riders</h3>
+                        <p>Chat with potential matches to confirm details and arrange the carpool.</p>
+                    </div>
+                    <div class="homepage_step">
+                        <h3>4. Enjoy the Ride!</h3>
+                        <p>Relax, save money, and reduce your environmental impact.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="homepage_testimonials">
+            <h2>What People Are Saying About ON MY WAY</h2>
+            <div class="homepage_testimonial-container">
+                <div class="homepage_testimonial active">
+                    <p>"ON MY WAY is a game-changer! My daily commute has become much more enjoyable, and I've made some wonderful friends along the journey."</p>
+                    <p>- John D., Teacher</p>
+                </div>
+                <div class="homepage_testimonial">
+                    <p>"I'm thrilled with the convenience of ON MY WAY. It's not just about saving money and reducing emissions; it's about building a sense of community and camaraderie."</p>
+                    <p>- Emily M., Nurse</p>
+                </div>
+                <div class="homepage_testimonial">
+                    <p>"I never thought carpooling could be this fun and rewarding. Thanks to ON MY WAY, I've found reliable travel companions and even discovered new places along my route!"</p>
+                    <p>- Michael S., Software Developer</p>
+                </div>
+                <div class="homepage_testimonial">
+                    <p>"ON MY WAY has simplified my daily commute and allowed me to contribute positively to the environment. Plus, I've had some fascinating conversations during the rides!"</p>
+                    <p>- Laura W., Financial Analyst</p>
+                </div>
+                <div class="homepage_testimonial">
+                    <p>"I highly recommend ON MY WAY to anyone looking to make their commute more sustainable and enjoyable. It's not just about transportation; it's about building connections and making a difference."</p>
+                    <p>- Alex R., Graphic Designer</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const testimonials = document.querySelectorAll(".homepage_testimonial");
+    let currentTestimonialIndex = 0;
+
+    function showTestimonial(index) {
+        testimonials.forEach(testimonial => {
+            testimonial.classList.remove("active");
+        });
+        testimonials[index].classList.add("active");
+    }
+
+    function rotateTestimonials() {
+        showTestimonial(currentTestimonialIndex);
+        currentTestimonialIndex++;
+        if (currentTestimonialIndex >= testimonials.length) {
+            currentTestimonialIndex = 0;
+        }
+    }
+
+    setInterval(rotateTestimonials, 1500); // Change testimonial every 2 seconds
+});
+    </script>
+{% endblock %}

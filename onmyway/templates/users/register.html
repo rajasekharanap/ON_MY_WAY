@@ -1,0 +1,185 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="register_all">
+    <section class="register_container">
+        <header>Join Our Community</header>
+        {% for message in messages %}
+        <div class="register_alert alert-{{ message.tags }}">
+            <strong>Sorry!</strong> {{ message }}
+            <button class="register_close_btn" aria-label="Close">×</button>
+        </div>
+        {% endfor %}
+        <form class="register_form" method="post" enctype="multipart/form-data" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="register_input-box">
+            <label>Full Name</label>
+            <input type="text" name="fullname" id="fullname" placeholder="Enter full name" required />
+            </div>
+            <div class="register_input-box">
+            <label>Email Address</label>
+            <input type="text" name="email" id="email" placeholder="Enter email address" required />
+            </div>
+            <div class="register_input-box">
+                <label>Phone Number</label>
+                <input type="number" name="phone" id="phone" placeholder="Enter phone number" required />
+            </div>
+            <div class="register_input-box ">
+                <label>Profile Picture</label>
+                <input type="file" name="profile_picture" id="profile_picture" accept="image/*" />
+            </div>
+            <div class="register_user-box">
+                <div class="register_user-option">
+                    <div class="register_user">
+                        <input type="radio" id="check-passenger" name="usertype" value="passenger" checked />
+                        <label for="check-passenger">Passenger</label>
+                    </div>
+                    <div class="register_user">
+                        <input type="radio" id="check-driver" name="usertype" value="driver"/>
+                        <label for="check-driver">Driver</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="register_file-upload">
+                <div class="register_centered-elements">
+                    <div id="passengerFileUpload" >
+                        <label>Upload Govt Id</label>
+                        <input type="file" name="govt_id" id="govt_id" accept="image/*,application/pdf" />
+                    </div>
+                    <div id="driverFileUpload">
+                        <label>Upload Driving License</label>
+                        <input type="file" name="license" id="license" accept="image/*,application/pdf" />
+                        <br><br>
+                        <label>Upload Vehicle Certificate</label>
+                        <input type="file" name="vehiclecertificate" id="vehiclecertificate" accept="image/*,application/pdf" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="register_modal" id="modal">
+                <div class="register_modal-content">
+                    <div class="register_modal-header">
+                        <h2>Your Car Details</h2>
+                    </div>
+                    <div class="register_modal-content">
+                        <div class="register_modal-input-box">
+                            <label>Car Model Name</label>
+                            <input type="text" name="carmodelname" id="carmodelname"  placeholder="Enter car model name" >
+                        </div>
+                        <div class="register_modal-car-box">
+                            <div class="register_modal-car-option">
+                                <div class="register_modal-car">
+                                    <input type="radio" id="check-5seater" name="cartype" value=5 />
+                                    <label for="check-5seater">5 Seater</label>
+                                </div>
+                                <div class="register_modal-car">
+                                    <input type="radio" id="check-7seater" name="cartype" value=7 />
+                                    <label for="check-7seater">7 Seater</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="register_modal-file-upload">
+                            <label>Upload 3 Car Images</label>
+                            <input type="file" name="carimages" id="carimages" accept="image/*" multiple  />
+                        </div>
+                    </div> 
+                    <div>
+                        <button class="register_modal-save">Save</button>
+                        <button class="register_modal-skip">Skip Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="register_input-box">
+                <label>Password</label>
+                <input type="password" name="pass" id="pass" placeholder="Enter password" required />
+            </div>
+            <div class="register_input-box">
+                <label>Confirm Password</label>
+                <input type="password" name="confpass" id="confpass" placeholder="Re-enter password" required />
+            </div>
+            <center><button type="button" class="register_modal_button" id="add_modal">Add Car Details</button></center>
+            <button class="register_submit">Submit</button>
+        </form>     
+        <center><h5>Already have an account?<a class="register_login" href="/login/"> Login</a></h5></center>
+    </section>
+</div>
+
+
+<script>
+    //To display modal
+    var modal = document.getElementById("modal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("add_modal");
+
+    // Get the <span> element that closes the modal
+    var skipBtn = document.querySelector('.register_modal-skip');
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    // When the user clicks on skip now, close the modal
+    skipBtn.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    }
+
+    // Get all close buttons
+    const closeButtons = document.querySelectorAll('.register_close_btn');
+    // Add event listener to each close button
+    closeButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            // Find the parent alert div and remove it
+            const alertDiv = btn.closest('.register_alert');
+            if (alertDiv) {
+                alertDiv.parentNode.removeChild(alertDiv);
+            }
+        });
+    });
+
+
+    // JavaScript code to toggle file upload inputs based on user type selection
+    document.addEventListener("DOMContentLoaded", function () {
+    const passengerRadio = document.getElementById("check-passenger");
+    const driverRadio = document.getElementById("check-driver");
+    const passengerFileUpload = document.getElementById("passengerFileUpload");
+    const driverFileUpload = document.getElementById("driverFileUpload");
+    const carDetailsButton = document.getElementById("add_modal");
+
+    // Function to show/hide file upload inputs based on user type selection
+    function toggleFileUploadInputs() {
+        if (passengerRadio.checked) {
+            passengerFileUpload.style.display = "block";
+            driverFileUpload.style.display = "none";
+            carDetailsButton.style.display = "none";
+        } else if (driverRadio.checked) {
+            passengerFileUpload.style.display = "none";
+            driverFileUpload.style.display = "block";
+            carDetailsButton.style.display = "block";
+        }
+    }
+
+    // Initial toggle
+    toggleFileUploadInputs();
+
+    // Add event listeners to radio buttons
+    passengerRadio.addEventListener("change", toggleFileUploadInputs);
+    driverRadio.addEventListener("change", toggleFileUploadInputs);
+});
+
+</script>
+
+{% endblock %}
+

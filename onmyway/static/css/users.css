@@ -1,0 +1,703 @@
+/* register.html styles */
+/* register.html styles */
+.register_alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color:red;
+  background-color:white;
+  border-color: #ebccd1;
+}
+.register_close_btn {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+  cursor: pointer;
+}
+.register_all {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgb(235, 235, 236);
+  }
+  .register_container {
+    position: relative;
+    max-width: 800px;
+    width: 80%;
+    background: #fff;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.1);
+  }
+  .register_container header {
+    font-size: 35px;
+    color: #2581c7;
+    font-weight: normal;
+    text-align: center;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  }
+  .register_container .form {
+    margin-top:40px;
+  }
+  .register_form .register_input-box {
+    width: 90%;
+    margin-top: 20px;
+  }
+  .register_input-box label {
+    color: #111111;
+  }
+  .register_form :where(.register_input-box input, .register_select-box) {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #646161;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 15px;
+  }
+  
+  .register_form .register_user-box {
+    margin-top: 20px;
+  }
+
+  .register_form :where(.register_user-option, .register_user) {
+    display: flex;
+    justify-content: center;
+    column-gap: 50px;
+  }
+  
+  .register_form .register_user {
+    column-gap: 5px;
+  }
+  .register_user input {
+    accent-color: rgb(9, 9, 9);
+  }
+  .register_form :where(.register_user input, .register_user label) {
+    cursor: pointer;
+  }
+  .register_user label {
+    color: #707070;
+  }
+  
+  .register_file-upload {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .register_centered-elements {
+      margin-left: 66px; /* Adjust this margin as needed */
+  }
+  .register_modal_button {
+    height: 30px; /* Reduced height */
+    width: 150px; /* Reduced width */
+    color: white; /* Changed color to red */
+    font-size: 1rem; /* Adjust font size as needed */
+    font-weight: 400;
+    margin-top: 30px; /* Adjust margin top as needed */
+    border: 3px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #2581c7;
+  }
+
+  .register_modal {
+    display: none;
+  }
+  
+  .register_submit {
+    height: 45px;
+    width: 50%;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-top: 30px;
+    border: 3px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #2581c7;
+    margin: 20px 200px;
+  }
+  .register_submit:hover {
+    opacity: 0.8;
+  }
+  /*Responsive*/
+  @media screen and (max-width: 500px) {
+    .register_form .column {
+      flex-wrap: wrap;
+    }
+  }
+  .register_login {
+    color:  #2581c7;
+    text-decoration: none;
+    font-size: large;
+  }
+   /* Modal styles */
+.register_modal {
+  display: none; /* Initially hidden */
+  position:absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 80%;
+  height: 60%;
+  background-color:white; /* Semi-transparent background */
+  margin-left: 80px;
+}
+
+.register_modal-content {
+  background-color: #fefefe; /* Modal content background color */
+  margin: 5% auto; /* Center the modal content vertically */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+}
+
+.register_modal-header {
+  padding: 10px 15px;
+  background-color: #2581c7; /* Header background color */
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.register_modal-close {
+  font-size: 28px;
+  font-weight: bold;
+  color: rgb(234, 17, 17);
+}
+
+.register_modal-close:hover,
+.register_modal-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.register_modal-car-option {
+  display: flex;
+  justify-content: center;
+  column-gap: 50px;
+  padding-bottom: 15px;
+}
+
+.register_modal-input-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.register_modal-input-box label {
+  text-align: left; /* Left-align label text */
+  margin-bottom: 5px; /* Add some space between label and input */
+}
+
+.register_modal-input-box input[type="text"] {
+  width: 100%; /* Full width */
+}
+
+.register_modal-input-box label {
+  text-align: left; /* Left-align label text */
+  margin-bottom: 5px; /* Add some space between label and input */
+}
+
+.register_modal-input-box input[type="text"] {
+  width: 100%; /* Full width */
+}
+
+
+.register_modal-file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align label and input */
+}
+
+.register_modal-file-upload label {
+  text-align: center; /* Center-align label text */
+  margin-bottom: 5px; /* Add some space between label and input */
+}
+
+.register_modal-file-upload input[type="file"] {
+  width: 50%; /* 50% width */
+}
+
+
+.register_modal-save, .register_modal-skip {
+  padding: 10px 15px;
+  background-color: #2581c7; /* Footer background color */
+  text-align: center;
+  justify-content: center;
+  width: 150px;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.register_modal-skip {
+  background-color: orange;
+  color:black;
+}
+
+/* Additional styles for modal inputs */
+.register_modal-content input[type="text"],
+.register_modal-content input[type="file"] {
+  width: 80%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+  /* register.html styles */
+  /* register.html styles */
+
+  
+  /* login.html styles */
+  /* login.html styles */
+  body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+
+  .login_alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color:red;
+    background-color:white;
+    border-color: #ebccd1;
+  }
+  
+  .login_close_btn {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+    cursor: pointer;
+  }
+  
+  .login_row {
+    display: flex;
+    margin: 10px auto;
+    width: 80%;
+    height: 700px;
+    background-color: rgb(230, 237, 235);
+  }
+  
+  .login_containerleft {
+    width: 60%;
+    height: 400px;
+    margin: 230px auto;
+    background-color: rgb(230, 237, 235);
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .login_containerright {
+    width: 50%;
+    height: 500px;
+    margin: 100px 40px 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .login_loginform {
+    padding: 20px;
+  }
+  
+  .login_heading {
+    margin-bottom: 20px;
+    color: #2581c7;
+  }
+  
+ .login_about {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-style: oblique;
+    font-weight: bold;
+    font-size: large;
+  }
+  
+  .login_label {
+    display: flex;
+    margin-bottom: 10px;
+    margin-left: 55px;
+  }
+    
+  .login_input {
+    width: 70%;
+    padding: 10px;
+    border: 3px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .login_submit {
+    background-color: #2581c7;
+    color: white;
+    padding: 10px 70px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 20px;
+  }
+  
+  .login_submit:hover {
+    opacity: 0.8;
+  }
+  
+  .login_forgot {
+    margin-top: 5px;
+    margin-bottom: 30px;
+  }
+  
+  .login_forgot a {
+    font-size: small;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .login_account {
+    font-size: large;
+    margin-bottom: 0px;
+  }
+  
+  .login_register {
+    font-size: medium;
+    margin-top: 0px;
+  }
+  
+  .login_register a {
+    text-decoration: none;
+    color: #2581c7;
+  }
+  
+/* login.html styles */
+/* login.html styles */
+
+/* userprofile.html styles */
+/* userprofile.html styles */
+.userprofile_container {
+  display: flex;
+  justify-content: left;
+  margin-top: 100px;
+  margin-left: 150px;
+}
+
+.userprofile_btn {
+  padding: 10px 20px;
+  border: none;
+  background-color: #2581c7;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.userprofile_btn.active {
+  background-color: #3221a3;
+}
+
+.userprofile_content {
+  text-align: left;
+  margin-left: 160px;
+  margin-top: 20px;
+
+}
+
+.userprofile_logout{
+  margin-left: 1000px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #2581c7;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.userprofile_logout a {
+  color: white; /* Set the text color to white */
+  text-decoration: none; /* Remove underline from the link */
+}
+
+.userprofile_logout:hover {
+  opacity: 0.8;
+}
+
+.userprofile_trip-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid black;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+
+.userprofile_driver-details,
+.userprofile_trip-details,
+.userprofile_additional-details,
+.userprofile_cost-details {
+  width: 20%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.userprofile_trip-details,
+.userprofile_additional-details{
+  width: 35%;
+}
+.userprofile_trip-details{
+  margin-top: 50px;
+}
+.userprofile_driver-photo, .userprofile_vehicle-photo{
+  background-color: #ccc;
+}
+
+.userprofile_profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.default-profile-photo {
+  width: 100px; /* Set the width of the default profile photo */
+  height: 100px; /* Set the height of the default profile photo */
+  background-color: #ccc; /* Add background color */
+  border-radius: 50%; /* Make it round */
+}
+
+.userprofile_car-photo {
+  width: 30x0px;
+  height: 150px;
+}
+
+.userprofile_driver-info h3,
+.userprofile_additional-details p,
+.userprofile_cost-details p {
+  margin: 5px 0;
+}
+
+.userprofile_cost-details {
+  margin-top: 90px;  
+}
+/* userprofile.html styles */
+/* userprofile.html styles */
+
+/* homepage.html styles */
+/* homepage.html styles */
+/* General Styles */
+.homepage_container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.homepage_header {
+  background-color: #2581c7;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.homepage_header h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.homepage_header p {
+  font-size: 18px;
+}
+/* Hero Section */
+.homepage_hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+
+.homepage_hero img {
+  margin-top: 50px;
+  margin-left: 30px;
+  width: 45%;
+  border-radius: 20px;
+}
+
+.homepage_hero-text {
+  width: 45%;
+  text-align: left;
+  margin:10px;
+}
+
+.homepage_hero-text h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.homepage_hero-text p {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.homepage_btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.homepage_btn:hover {
+  background-color: #555;
+}
+
+.homepage_heading {
+  color: #2581c7; /* Your brand color */
+  text-align: center; /* Center aligning the heading */
+  margin-bottom: 20px; 
+  /* Adding some space below the heading */
+}
+/* Benefits Section */
+.homepage_benefit {
+  background-color: #eaf2f8; /* Light blue background color */
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Aligning content to center */
+  transition: background-color 0.3s ease; /* Adding transition effect */
+}
+
+/* Hover effect */
+.homepage_benefit:hover {
+  background-color: #d7e8f5; /* Slightly darker shade of light blue on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adjusting box shadow on hover */
+}
+
+.homepage_benefit h3 {
+  color: #333;
+  font-size: 24px;
+}
+
+.homepage_benefit p {
+  color: #555;
+  font-size: 18px;
+  text-align: center; /* Aligning content to center */
+}
+
+/* Adjusting text color on hover */
+.homepage_benefit:hover h3,
+.homepage_benefit:hover p {
+  color: #444; /* Darker shade of text color */
+}
+
+.homepage_how-it-works {
+  margin-top: 80px; /* Adjust the margin-top value as needed */
+  text-align: center;
+}
+
+.homepage_steps {
+  display: flex;
+  flex-direction: column; /* Arrange steps in a column */
+  gap: 20px; /* Adding space between rows */
+}
+
+.homepage_row {
+  display: flex;
+  justify-content: space-between; /* Distribute items evenly along the row */
+  background-color: #fff; /* White background color */
+  padding: 10px; /* Adding padding to the row */
+  border-radius: 8px; /* Adding border radius for rounded corners */
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); /* Adding box shadow */
+  gap: 40px;
+}
+
+.homepage_step {
+  width: calc(50% - 10px); /* Setting width for each step to fit two in a row with gap */
+  padding: 20px;
+  background-color: #eaf2f8; /* Light blue background color */
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.homepage_step h3 {
+  color:black; /* White color */
+  background-color: white; /* Your brand color */
+  padding: 10px 20px; /* Adding padding to the heading */
+  border-radius: 5px; /* Adding border radius for rounded corners */
+}
+
+.homepage_step p {
+  color: #555;
+}
+
+/* Testimonials Section */
+.homepage_testimonials {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.homepage_testimonial-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.homepage_testimonial {
+  background-color: #f9f9f9; /* Light background color */
+  padding: 20px;
+  border-radius: 12px; /* Rounded corners for the testimonial */
+  margin-bottom: 40px; /* Increased margin for better separation */
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+  max-width: 80%; /* Limiting width to improve readability */
+  transition: opacity 0.5s ease-in-out; /* Smooth transition effect */
+  opacity: 0; /* Initially hide testimonials */
+}
+
+/* Styling for active testimonial */
+.homepage_testimonial.active {
+  opacity: 1; /* Show active testimonial */
+}
+
+
+/* homepage.html styles */
+/* homepage.html styles */
