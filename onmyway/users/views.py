@@ -106,7 +106,6 @@ def user_login(request):
         if user is not None:
             login(request, user)
             next_page = request.POST.get('next', '')
-            print(next_page)
             if next_page:
                 return redirect(next_page)
             else:
