@@ -76,7 +76,5 @@ def tripdetails(request):
             seatprice = seatprice,
             description = description
         )
-
-        print(startingpoint, endpoint, departuredate, departuretime, luggagesize, pets, emptyseats, seatprice, description)
         return redirect(reverse('userprofile'))
     return render(request, 'posttrip/posttrip.html')

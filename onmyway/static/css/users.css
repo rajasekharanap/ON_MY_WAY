@@ -437,8 +437,8 @@
 
 }
 
-.userprofile_logout{
-  margin-left: 1000px;
+.userprofile_edit{
+  margin-left: 850px;
   padding: 10px 20px;
   border: none;
   background-color: #2581c7;
@@ -448,12 +448,12 @@
   margin-right: 10px;
 }
 
-.userprofile_logout a {
+.userprofile_edit a {
   color: white; /* Set the text color to white */
   text-decoration: none; /* Remove underline from the link */
 }
 
-.userprofile_logout:hover {
+.userprofile_edit:hover {
   opacity: 0.8;
 }
 

@@ -148,7 +148,7 @@ def get_trip_details_for_booking(booking_id):
         trip_details = TripDetails.objects.filter(car=car_details).first()  # Assuming there's only one TripDetails per CarDetails
         
         return trip_details
-    except BookingTrip.DoesNotExist:
+    except BookingTrip.DoesNotExist:  
         return None
 
 def user_logout(request):

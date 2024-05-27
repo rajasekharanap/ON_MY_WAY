@@ -75,66 +75,68 @@
       }
 
 
-      //For displaying the route in map and also total kms and time 
-      function calculateAndDisplayRoute(map) {
+      // Function to calculate and display the route
+    function calculateAndDisplayRoute(map) {
         var directionsService = new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer({ map: map });
         
         var start = document.getElementById('starting-point').value;
         var end = document.getElementById('ending-point').value;
         
-        directionsService.route(
-          {
+        directionsService.route({
             origin: start,
             destination: end,
             travelMode: 'DRIVING'
-          },
-          function(response, status) {
+        }, function(response, status) {
             if (status === 'OK') {
-              directionsDisplay.setDirections(response);
-        
+                directionsDisplay.setDirections(response);
+
                 // Extract route distance and duration
                 var route = response.routes[0];
                 var distance = route.legs[0].distance.text;
                 var duration = route.legs[0].duration.text;
-        
+
                 // Display route distance and duration
                 var routeInfo = document.getElementById('route-info');
                 routeInfo.innerHTML = 'Total route is ' + distance + ' with average time ' + duration;
+
+                // Get the total distance from the route info div
+                var total_kms = parseInt(distance.match(/\d+/)); // Extract only integer part
+
+                // Make sure total_kms is a valid number
+                if (!isNaN(total_kms)) {
+                    // Make an AJAX request to fetch the seat price
+                    fetch('{% url 'calculate_seat_price' %}?total_kms=' + total_kms)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the seat price input box with the calculated seat price
+                        document.getElementById('seat-price').value = data.seat_price;
+                    })
+                    .catch(error => console.error('Error:', error));
                 } else {
-                  window.alert('Please enter the starting and ending point ' + status); 
+                    console.error('Invalid total distance:', distance);
                 }
-          });
-      }
-      //Trigger for displaying the route
-      document.getElementById('departure-date').addEventListener('click', function() {
-          var map = initMap();
-          calculateAndDisplayRoute(map);
-      });
-
-
-      document.getElementById('departure-time').addEventListener('click', function() {
-    // Get the total distance from the route info div
-    var distanceText = document.getElementById('route-info').textContent;
-    // Extract the numeric value from the distance string (only integer part)
-    var total_kms = parseInt(distanceText.match(/\d{1,}/)); // Extracts only integer part
-    console.log(total_kms);
-
-    // Make sure total_kms is a valid number
-    if (!isNaN(total_kms)) {
-        // Make an AJAX request to fetch the seat price
-        fetch('{% url 'calculate_seat_price' %}?total_kms=' + total_kms)
-        .then(response => response.json())
-        .then(data => {
-            // Update the seat price input box with the calculated seat price
-            document.getElementById('seat-price').value = data.seat_price;
-            console.log('Seat price:', data.seat_price); // Log the received seat price
-        })
-        .catch(error => console.error('Error:', error));
-    } else {
-        console.error('Invalid total distance:', distanceText);
+            } else {
+                window.alert('Please enter valid starting and ending points.');
+            }
+        });
     }
-});
+
+    // Event listener for mouseout on ending point input
+    document.getElementById('ending-point').addEventListener('mouseout', function() {
+        if (document.getElementById('starting-point').value && document.getElementById('ending-point').value) {
+            var map = initMap();
+            calculateAndDisplayRoute(map);
+        }
+    });
+
+    // Event listener for input change on starting point
+    document.getElementById('starting-point').addEventListener('mouseout', function() {
+        if (document.getElementById('starting-point').value && document.getElementById('ending-point').value) {
+            var map = initMap();
+            calculateAndDisplayRoute(map);
+        }
+    });
 
         
     //For listing out departure time options as a list

@@ -1,15 +1,16 @@
 .contents {
-    margin-top: 80px; /* Adjust the margin-top to create space between the navbar and content */
+    margin-top: 150px; /* Adjust the margin-top to create space between the navbar and content */
 }
 
 /* navbar.html styles */
 /* navbar.html styles */
 .navbar {
-    overflow: hidden;
+    overflow: hidden; 
     background-color: white;
     position: fixed;
     top: 0;
     width: 100%;
+    height: 150px;
     z-index: 10;
 }
 
@@ -70,6 +71,42 @@
 
 .navbar_navlinks li a i {
     margin-right: 5px; /* Adjust the margin-right to create space between the icon and text */
+}
+
+.navbar_dropdown{
+    position: relative;
+    display: inline-block;
+}
+
+.navbar_dropbtn{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.navbar_dropdown-content{
+    display: none;
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    font-size: 20px;
+}
+
+.navbar_dropdown-content a {
+    color: black;
+    padding: 6px 6px;
+    text-decoration: none;
+    font-size: 15px;
+    display: block;
+}
+
+.navbar_dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.navbar_dropdown:hover .navbar_dropdown-content {
+    display: block;
 }
 /* navbar.html styles */
 /* navbar.html styles */

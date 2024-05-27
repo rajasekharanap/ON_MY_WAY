@@ -12,7 +12,18 @@
          <div class="navbar_right">
             <ul class="navbar_navlinks">
                 <li><a href="/working"><i class="fas fa-car" style="color: #ed6810;"></i> How it works</a></li>
+                {% if user.is_authenticated %}
+                    <li class="navbar_dropdown">
+                        <a href="#" class="navbar_dropbtn"><i class="fas fa-user" style="color: #ed6810;"></i>Hi, {{ user.fullname }}</a>
+                        <div class="navbar_dropdown-content">
+                            <a href="{% url 'userprofile' %}">Profile</a>
+                            <a href="{% url 'changepassword' %}">Change password</a>
+                            <a href="{% url 'user_logout' %}">Logout</a>        
+                        </div>
+                    </li>
+                {% else %}
                 <li><a href="/login"><i class="fas fa-user" style="color: #ed6810;"></i> Sign in</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
