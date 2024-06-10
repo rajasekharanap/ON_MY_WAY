@@ -1,0 +1,127 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+<div class="updateprofile_all">
+    <section class="updateprofile_container">
+        <header>Update Your Profile</header>
+        {% for message in messages %}
+        <div class="updateprofile_alert alert-{{ message.tags }}">
+            <strong>Sorry!</strong> {{ message }}
+            <button class="updateprofile_close_btn" aria-label="Close">×</button>
+        </div>
+        {% endfor %}
+        <form class="updateprofile_form" method="post" enctype="multipart/form-data" action="{% url 'updateprofile' %}">
+            {% csrf_token %}
+            <div class="updateprofile_input-box">
+            <label>Full Name</label>
+            <input type="text" name="fullname" id="fullname" value="{{ user.fullname }}" placeholder="Enter full name" />
+            </div>
+            <div class="updateprofile_input-box">
+            <label>Email Address</label>
+            <input type="text" name="email" id="email" value="{{ user.email }}" placeholder="Enter email address" />
+            </div>
+            <div class="updateprofile_input-box">
+                <label>Phone Number</label>
+                <input type="text" name="phone" id="phone" value="{{ user.phone|slice:"3:" }}" placeholder="Enter phone number" />
+            </div>
+            <div class="updateprofile_input-box ">
+                <label>Profile Picture</label>
+                <input type="file" name="profile_picture" id="profile_picture" accept="image/*" />
+            </div>
+            <div class="updateprofile_user-box">
+                <div class="updateprofile_user-option">
+                    <div class="updateprofile_user">
+                        <input type="radio" id="check-passenger" name="usertype" value="passenger" {% if user.usertype == 'passenger' %} checked {% endif %}/>
+                        <label for="check-passenger">Passenger</label>
+                    </div>
+                    <div class="updateprofile_user">
+                        <input type="radio" id="check-driver" name="usertype" value="driver" {% if user.usertype == 'driver' %} checked {% endif %}/>
+                        <label for="check-driver">Driver</label> 
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="updateprofile_file-upload">
+                <div class="updateprofile_centered-elements">
+                    <div id="passengerFileUpload" >
+                        <label>Upload Govt Id</label>
+                        <input type="file" name="govt_id" id="govt_id" accept="image/*,application/pdf" />
+                    </div>
+                    <div id="driverFileUpload">
+                        <label>Upload Driving License</label>
+                        <input type="file" name="license" id="license" accept="image/*,application/pdf" />
+                        <br><br>
+                        <label>Upload Vehicle Certificate</label>
+                        <input type="file" name="vehiclecertificate" id="vehiclecertificate" accept="image/*,application/pdf" />
+                    </div>
+                </div>
+            </div>
+            <header class="updateprofile_carheading">Your Car Details</header>
+            <div class="updateprofile_input-box">
+                <label>Car Model Name</label>
+                <input type="text" name="carmodelname" id="carmodelname" value="{{ user.usercar.carmodelname }}" placeholder="Enter car model name" />
+            </div>
+            <div class="updateprofile_user-box">
+                <div class="updateprofile_user-option">
+                    <div class="updateprofile_user">
+                        <input type="radio" id="check-5seater" name="cartype" value="5" {% if user.usercar.seatingcapacity == 5 %} checked {% endif %} />
+                        <label for="check-5seater">5 Seater</label>
+                    </div>
+                    <div class="updateprofile_user">
+                        <input type="radio" id="check-7seater" name="cartype" value="7" {% if user.usercar.seatingcapacity == 7 %} checked {% endif %} />
+                        <label for="check-7seater">7 Seater</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="updateprofile_file-upload">
+                <div class="updateprofile_centered-elements">
+                    <label>Upload 3 Car Images</label>
+                    <input type="file" name="carimages" id="carimages" accept="image/*" multiple />
+                </div>
+            </div>
+            <button class="updateprofile_submit">Update</button>
+        </form>     
+    </section>
+</div>
+
+
+
+<script>
+    const closeButtons = document.querySelectorAll('.updateprofile_close_btn');
+    closeButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const alertDiv = btn.closest('.updateprofile_alert');
+            if (alertDiv){
+                alertDiv.parentNode.removeChild(alertDiv);
+            }
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const passengerRadio= document.getElementById("check-passenger");
+        const driverRadio= document.getElementById("check-driver");
+        const passengerFileUpload= document.getElementById("passengerFileUpload");
+        const driverFileUpload= document.getElementById("driverFileUpload");
+        
+        function toggleFileUploadInputs() {
+            if(passengerRadio.checked) {
+                passengerFileUpload.style.display = "block";
+                driverFileUpload.style.display = "none";
+            }
+
+            else if(driverRadio.checked) {
+                passengerFileUpload.style.display = "none";
+                driverFileUpload.style.display = "block";
+            }
+        }
+        
+        toggleFileUploadInputs();
+        passengerRadio.addEventListener("change", toggleFileUploadInputs);
+        driverRadio.addEventListener("change", toggleFileUploadInputs);  
+
+    })
+</script>
+{% endblock %}

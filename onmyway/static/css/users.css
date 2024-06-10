@@ -523,6 +523,7 @@
 .homepage_container {
   width: 80%;
   margin: 0 auto;
+  margin-top: 20px;
 }
 
 .homepage_header {
@@ -697,7 +698,241 @@
 .homepage_testimonial.active {
   opacity: 1; /* Show active testimonial */
 }
-
-
 /* homepage.html styles */
 /* homepage.html styles */
+
+/* changepassword.html styles */
+/* changepassword.html styles */
+.changepassword_center{
+  display: flex;
+  justify-content: center;
+}
+
+.changepassword_alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color:white;
+  border-color: #ebccd1;
+}
+
+.changepassword_alert.alert-error {
+  color: red;
+}
+
+.changepassword_alert.alert-success {
+  color: green;
+}
+.changepassword_close_btn {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+  cursor: pointer;
+}
+
+.changepassword_container{
+  width:50%;
+  height: 500px;
+  margin: 50px 40px 10px;
+  background-color: rgb(230, 237, 235);
+  border-radius: 5px;
+  border: 5px black;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.changepassword_form{
+  padding: 20px;
+}
+
+.changepassword_heading{
+  margin-bottom: 20px;
+  color: #2581c7;
+}
+
+.changepassword_label{
+  display: flex;
+  margin-bottom: 10px;
+  margin-left: 55px;
+}
+
+.changepassword_input{
+  width: 70%;
+  padding: 10px;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.changepassword_submit {
+  background-color: #2581c7;
+  color: white;
+  padding: 10px 70px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.changepassword_submit:hover {
+  opacity: 0.8;
+}
+
+.changepassword_forgot{
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
+.changepassword_forgot a{
+  font-size: small;
+  text-decoration: none;
+  color: black;
+}
+/* changepassword.html styles */
+/* changepassword.html styles */
+
+/* updateprofile.html styles */
+/* updateprofile.html styles */
+.updateprofile_alert {
+  padding: 15px;
+  margin: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: red;
+  background-color: white;
+  border-color: #ebccd1;
+}
+
+.updateprofile_close_btn {
+  float:right;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  color: black;
+  text-shadow: 0 1px 0 white;
+  opacity: .5;
+  cursor: pointer;
+}
+
+.updateprofile_all{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: white;
+}
+
+.updateprofile_container{
+  position: relative;
+  max-width: 800px;
+  width: 80%;
+  background: white;
+  padding: 25px;
+  border-radius: 5px;
+  margin-bottom: 50px;
+  box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.3);
+}
+
+.updateprofile_container header {
+  font-size: 35px;
+  color: #2581c7;
+  font-weight: normal;
+  text-align: center;
+  font-family: math;
+}
+
+.updateprofile_container .form{
+  margin-top: 40px;
+}
+
+.updateprofile_form .updateprofile_input-box{
+  width: 90%;
+  margin-top: 20px;
+}
+
+.updateprofile_input-box label{
+  color: black;
+}
+
+.updateprofile_input-box input{
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #646161;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+
+.updateprofile_user-box{
+  margin-top: 20px;
+}
+
+.updateprofile_form :where(.updateprofile_user-option, .updateprofile_user) {
+  display: flex;
+  justify-content: center;
+  column-gap: 50px;
+}
+
+.updateprofile_form .updateprofile_user {
+  column-gap: 5px;
+}
+
+.updateprofile_user input{
+  accent-color: rgb(9, 9, 9);
+}
+
+.updateprofile_form :where(.updateprofile_user input, .updateprofile_user label) {
+  cursor: pointer;
+}
+
+.updateprofile_user label{
+  color: #707070;
+}
+
+.updateprofile_file-upload {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.updateprofile_centered-elements {
+  margin-left: 66px;
+}
+
+.updateprofile_submit {
+  height: 45px;
+  width: 50%;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: 3px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #2581c7;
+  margin: 20px 200px;
+}
+
+.updateprofile_submit:hover {
+opacity: 0.8;
+}
+
+.updateprofile_carheading {
+  margin-top: 30px;
+}
+/* updateprofile.html styles */
+/* updateprofile.html styles */
