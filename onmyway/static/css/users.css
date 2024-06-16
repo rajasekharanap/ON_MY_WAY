@@ -325,7 +325,7 @@
     width: 50%;
     height: 500px;
     margin: 100px 40px 10px;
-    background-color: #fff;
+    background-color:white;
     border-radius: 5px;
     text-align: center;
     justify-content: center;
@@ -936,3 +936,114 @@ opacity: 0.8;
 }
 /* updateprofile.html styles */
 /* updateprofile.html styles */
+
+/* forgotpassword_and_otp_pages.html styles */
+/* forgotpassword_and_otp_pages.html styles */
+.forgotpassword_and_otp_pages_alert{
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color:red;
+  background-color: white;
+  border-color:#ebccd1
+}
+
+.forgotpassword_and_otp_pages_close-btn{
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  color:#000;
+  text-shadow: 0 1px 0 white;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.forgotpassword_and_otp_pages_outer-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.forgotpassword_and_otp_pages_box{
+  width: 50%;
+  height:400px;
+  margin: 100px 40px 10px;
+  background-color: white;
+  border-radius: 5px;text-align: center;
+  justify-content: center;
+  padding: 20px;
+  box-shadow: 0px 0px 30px 5px black ;
+}
+
+.forgotpassword_and_otp_pages_form{
+  padding: 20px;
+}
+
+.forgotpassword_and_otp_pages_heading{
+  margin-bottom: 20px;
+  color: #2581c7;
+}
+
+.forgotpassword_and_otp_pages_title{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: large;
+  color: #0d046e;
+}
+
+.forgotpassword_and_otp_pages_input{
+  width: 70%;
+  padding: 10px;
+  border: 3px solid rgb(11, 11, 11);
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+}
+
+.forgotpassword_and_otp_pages_button{
+  background-color: #2581c7;
+  color: white;
+  padding: 10px 70px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.forgotpassword_and_otp_pages_button:hover {
+  opacity: 0.8;
+}
+
+.forgotpassword_and_otp_pages_login{
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
+.forgotpassword_and_otp_pages_login a{
+  font-size: medium;
+  text-decoration: none;
+  color: black;
+}
+
+.forgotpassword_and_otp_pages_account{
+  font-size: large;
+  margin-bottom: 0px;
+}
+
+.forgotpassword_and_otp_pages_register{
+  font-size: medium;
+  margin-top: 0px;
+}
+
+.forgotpassword_and_otp_pages_register a{
+  text-decoration: none;
+  color: #2581c7;
+}
+/* forgotpassword.html styles */
+/* forgotpassword.html styles */
+

@@ -8,6 +8,29 @@ from posttrip.models import TripDetails
 from findtrip.models import BookingTrip
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from dotenv import load_dotenv
+from decouple import config
+from twilio.rest import Client
+from twilio.base.exceptions import TwilioRestException
+
+
+load_dotenv()
+
+client = Client(config('TWILIO_ACCOUNT_SID'), config('TWILIO_AUTH_TOKEN'))
+verify = client.verify.services(config('TWILIO_VERIFY_SERVICE_SID'))
+
+def send(phone):
+    verify.verifications.create(to=phone, channel='sms')
+
+def check(phone, code):
+    try:
+        result = verify.verification_checks.create(to=phone, code=code)
+        print("set", result)
+    except TwilioRestException:
+        print('no')
+        return False
+    return result.status == 'approved'
+
 
 def homepage(request):
     return render(request, 'users/homepage.html')
@@ -101,6 +124,7 @@ def user_login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
+        print(password)
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
@@ -220,12 +244,65 @@ def updateprofile(request):
 
     return render(request, 'users/updateprofile.html', {'user': user})
 
+
 def user_logout(request):
     logout(request)
     return redirect('login')
 
 def forgotpassword(request):
+    if request.method == 'POST':
+        phone_number = "+91" + request.POST.get('phone')
+        print(phone_number)
+        try:
+            user = CustomUser.objects.get(phone=phone_number)
+            if user:
+                send(phone_number)
+                return render(request, 'users/otpverification.html', {'phone': phone_number})
+        except CustomUser.DoesNotExist:
+            messages.error(request, "User with the provided phone number doesn't exist.")     
     return render(request, 'users/forgotpassword.html')
+
+def otp_verification(request,phone):
+    user = CustomUser.objects.get(phone=phone)
+    if request.method == 'POST':
+        otp_code = request.POST.get('otp')
+
+        if check(phone, otp_code):
+            return redirect('resetpassword', phone)
+        else:
+            messages.error(request, "Please enter the correct otp")
+
+    return render(request, 'users/otpverification.html')
+
+def resetpassword(request, phone):
+    user = CustomUser.objects.get(phone=phone)
+    message = []
+    if request.method == 'POST':
+        new_password = request.POST['newpassword']
+        confnew_password = request.POST['confnewpassword']
+        
+        if new_password != confnew_password:
+            message.append(('Password do not match.', 'error'))
+        
+        if len(new_password) < 6:
+            message.append(('Password should be at least 6 character long.', 'error'))
+        
+        if not any(char.isalpha() for char in new_password):
+            message.append(('Password should contain at least one letter.', 'error'))
+
+        if not any(char.isdigit() for char in new_password):
+            message.append(('Password should contain at least one digit.', 'error'))
+
+        if message:
+            for msg, tag in message:
+                messages.add_message(request, messages.ERROR if tag == 'error' else messages.SUCCESS, msg)
+            return redirect('resetpassword')
+        else:
+            hashed_password = make_password(new_password)
+            user.password = hashed_password
+            user.save()
+            return redirect('login')
+    return render(request,'users/resetpassword.html', {'phone':phone})
 
 @login_required
 def changepassword(request):
