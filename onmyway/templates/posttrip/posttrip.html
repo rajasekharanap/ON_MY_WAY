@@ -5,6 +5,12 @@
     <div class="posttrip_container">
       <div class="posttrip_left-section">
         <h2 class="posttrip_heading">Post a Trip</h2>
+        {% for message in messages %}
+        <div class="posttrip_alert alert-{{ message.tags }}">
+            <strong>Sorry!</strong> {{ message }}
+            <button class="posttrip_close-btn" aria-label="Close">×</button>
+        </div>
+        {% endfor %}
         <form class="posttrip_form" method="POST" action="{% url 'tripdetails' %}">
           {% csrf_token %}
           <label for="starting-point">Starting Point:</label><br>
@@ -35,6 +41,7 @@
               <label for="pets-allowed-no">No</label>
             </div>
           </div>
+          <input type="hidden" name="kilometers" id="kilometers">
           <label for="seat-number">Empty seats:</label><br>
           <input type="number" id="seat-number" name="empty-seats" min=1 max=6 required><br>
           <label for="seat-price">Seat Price:</label><br>
@@ -104,6 +111,7 @@
 
                 // Make sure total_kms is a valid number
                 if (!isNaN(total_kms)) {
+                    document.getElementById('kilometers').value = total_kms;
                     // Make an AJAX request to fetch the seat price
                     fetch('{% url 'calculate_seat_price' %}?total_kms=' + total_kms)
                     .then(response => response.json())
@@ -147,7 +155,7 @@
     }
     // Loop to generate options for every 15 minutes
     // Loop to generate options for every 15 minutes
-for (var hour = 0; hour < 24; hour++) {
+  for (var hour = 0; hour < 24; hour++) {
     for (var minute = 0; minute < 60; minute += 15) {
         // Format the hour and minute
         var formattedHour = addLeadingZero(hour);
@@ -169,6 +177,18 @@ for (var hour = 0; hour < 24; hour++) {
         console.log(option.textContent, option.value)
     }
 }
+
+  const closeButtons = document.querySelectorAll('.posttrip_close-btn');
+    // Add event listener to each close button
+    closeButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            // Find the parent alert div and remove it
+            const alertDiv = btn.closest('.posttrip_alert');
+            if (alertDiv) {
+                alertDiv.parentNode.removeChild(alertDiv);
+            }
+        });
+    });
 
   </script>
         

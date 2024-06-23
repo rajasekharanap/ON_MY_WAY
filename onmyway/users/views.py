@@ -124,7 +124,6 @@ def user_login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        print(password)
         user = authenticate(email=email, password=password)
         if user is not None:
             login(request, user)
@@ -259,10 +258,11 @@ def forgotpassword(request):
                 send(phone_number)
                 return render(request, 'users/otpverification.html', {'phone': phone_number})
         except CustomUser.DoesNotExist:
-            messages.error(request, "User with the provided phone number doesn't exist.")     
+            messages.error(request, "User with the provided phone number doesn't exist.")   
+              
     return render(request, 'users/forgotpassword.html')
 
-def otp_verification(request,phone):
+def otp_verification(request, phone):
     user = CustomUser.objects.get(phone=phone)
     if request.method == 'POST':
         otp_code = request.POST.get('otp')
@@ -271,6 +271,7 @@ def otp_verification(request,phone):
             return redirect('resetpassword', phone)
         else:
             messages.error(request, "Please enter the correct otp")
+            return render(request, 'users/otpverification.html', {'phone':phone})
 
     return render(request, 'users/otpverification.html')
 
@@ -296,7 +297,7 @@ def resetpassword(request, phone):
         if message:
             for msg, tag in message:
                 messages.add_message(request, messages.ERROR if tag == 'error' else messages.SUCCESS, msg)
-            return redirect('resetpassword')
+            return redirect('resetpassword', phone)
         else:
             hashed_password = make_password(new_password)
             user.password = hashed_password

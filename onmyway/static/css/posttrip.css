@@ -10,6 +10,27 @@
     display: flex;
     flex-direction: row;
   }
+
+  .posttrip_alert{
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color:red;
+    background-color: white;
+    border-color:#ebccd1
+  }
+  
+  .posttrip_close-btn{
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    color:#000;
+    text-shadow: 0 1px 0 white;
+    opacity: 0.5;
+    cursor: pointer;
+  }
   .posttrip_left-section, .posttrip_right-section {
     width: 50%;
     padding: 20px;

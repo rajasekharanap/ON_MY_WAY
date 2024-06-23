@@ -701,14 +701,14 @@
 /* homepage.html styles */
 /* homepage.html styles */
 
-/* changepassword.html styles */
-/* changepassword.html styles */
-.changepassword_center{
+/* changepassword_and_reset_pages.html styles */
+/* changepassword_and_reset_pages.html styles */
+.changepassword_and_reset_pages_center{
   display: flex;
   justify-content: center;
 }
 
-.changepassword_alert {
+.changepassword_and_reset_pages_alert {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
@@ -717,14 +717,14 @@
   border-color: #ebccd1;
 }
 
-.changepassword_alert.alert-error {
+.changepassword_and_reset_pages_alert.alert-error {
   color: red;
 }
 
-.changepassword_alert.alert-success {
+.changepassword_and_reset_pages_alert.alert-success {
   color: green;
 }
-.changepassword_close_btn {
+.changepassword_and_reset_pages_close_btn {
   float: right;
   font-size: 20px;
   font-weight: bold;
@@ -735,7 +735,7 @@
   cursor: pointer;
 }
 
-.changepassword_container{
+.changepassword_and_reset_pages_container{
   width:50%;
   height: 500px;
   margin: 50px 40px 10px;
@@ -747,22 +747,22 @@
   padding: 20px;
 }
 
-.changepassword_form{
+.changepassword_and_reset_pages_form{
   padding: 20px;
 }
 
-.changepassword_heading{
+.changepassword_and_reset_pages_heading{
   margin-bottom: 20px;
   color: #2581c7;
 }
 
-.changepassword_label{
+.changepassword_and_reset_pages_label{
   display: flex;
   margin-bottom: 10px;
   margin-left: 55px;
 }
 
-.changepassword_input{
+.changepassword_and_reset_pages_input{
   width: 70%;
   padding: 10px;
   border: 3px solid #ccc;
@@ -770,7 +770,7 @@
   margin-bottom: 10px;
 }
 
-.changepassword_submit {
+.changepassword_and_reset_pages_submit {
   background-color: #2581c7;
   color: white;
   padding: 10px 70px;
@@ -781,22 +781,22 @@
   font-size: 20px;
 }
 
-.changepassword_submit:hover {
+.changepassword_and_reset_pages_submit:hover {
   opacity: 0.8;
 }
 
-.changepassword_forgot{
+.changepassword_and_reset_pages_forgot{
   margin-top: 5px;
   margin-bottom: 30px;
 }
 
-.changepassword_forgot a{
+.changepassword_and_reset_pages_forgot a{
   font-size: small;
   text-decoration: none;
   color: black;
 }
-/* changepassword.html styles */
-/* changepassword.html styles */
+/* changepassword_and_reset_pages.html styles */
+/* changepassword_and_reset_pages.html styles */
 
 /* updateprofile.html styles */
 /* updateprofile.html styles */
@@ -969,7 +969,7 @@ opacity: 0.8;
 
 .forgotpassword_and_otp_pages_box{
   width: 50%;
-  height:400px;
+  height:450px;
   margin: 100px 40px 10px;
   background-color: white;
   border-radius: 5px;text-align: center;

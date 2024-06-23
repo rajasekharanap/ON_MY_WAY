@@ -12,7 +12,7 @@
             <button class="register_close_btn" aria-label="Close">×</button>
         </div>
         {% endfor %}
-        <form class="register_form" method="post" enctype="multipart/form-data" action="{% url 'register' %}">
+        <form class="register_form" id="register_form" method="post" enctype="multipart/form-data" action="{% url 'register' %}">
             {% csrf_token %}
             <div class="register_input-box">
             <label>Full Name</label>
@@ -149,7 +149,6 @@
         });
     });
 
-
     // JavaScript code to toggle file upload inputs based on user type selection
     document.addEventListener("DOMContentLoaded", function () {
     const passengerRadio = document.getElementById("check-passenger");
@@ -177,7 +176,43 @@
     // Add event listeners to radio buttons
     passengerRadio.addEventListener("change", toggleFileUploadInputs);
     driverRadio.addEventListener("change", toggleFileUploadInputs);
+
 });
+
+//to check if the files are uploaded
+function filesvalidation() {
+        const userType = document.querySelector('input[name="usertype"]:checked').value;
+
+        if (userType === 'passenger') {
+            const govtIdInput = document.getElementById('govt_id');
+            if (govtIdInput.files.length === 0) {
+                alert('Please upload Govt Id.');
+                return false;
+            }
+        } else if (userType === 'driver') {
+            const licenseInput = document.getElementById('license');
+            const vehicleCertificateInput = document.getElementById('vehiclecertificate');
+            
+            if (licenseInput.files.length === 0) {
+                alert('Please upload Driving License.');
+                return false;
+            }
+            if (vehicleCertificateInput.files.length === 0) {
+                alert('Please upload Vehicle Certificate.');
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Add event listener to form submission
+    document.getElementById('register_form').addEventListener('submit', function(event) {
+        if (!filesvalidation()) {
+            event.preventDefault(); // Prevent form submission if validation fails
+        }
+    });
+
 
 </script>
 
