@@ -1,0 +1,24 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="tripdetails-container">
+        <h2>Trip Details</h2>
+        <div class="tripdetails-info">
+            <p>From: {{ tripdetails.startingpoint }}</p>
+            <p>To: {{ tripdetails.endpoint }}</p>
+            <p>Departure Date: {{ tripdetails.departuredate }}</p>
+            <p>Departure Time: {{ tripdetails.departuretime }}</p>
+            <p>Luggage Size: {{ tripdetails.luggagesize }}</p>
+            <p>Pets Allowed: {{ tripdetails.pets }}</p>
+            <p>Kilometers: {{ tripdetails.kilometers }}</p>
+            <p>Cost Per Seat: ₹{{ tripdetails.seatprice }}</p>
+            <p>Seats Available: {{ tripdetails.emptyseats }}</p>
+            <p>Description: {{ tripdetails.description }}</p>
+        </div>
+        <div class="tripdetails-actions">
+            <button><a href="">Edit Trip</a></button>
+            <button><a href="">Cancel Trip</a></button>
+        </div>
+    </div>
+{% endblock %}

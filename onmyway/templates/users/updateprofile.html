@@ -81,8 +81,12 @@
                     <input type="file" name="carimages" id="carimages" accept="image/*" multiple />
                 </div>
             </div>
-            <button class="updateprofile_submit">Update</button>
-        </form>     
+            <button type="submit" class="updateprofile_submit">Update</button>
+        </form>    
+        <form method="post" action="{% url 'delete_car_details' %}" id="deletecarform">
+            {% csrf_token %}
+            <button type="button" class="updateprofile_submit" onclick="confirmDeleteCarDetails()">Delete Car Details</button> 
+        </form>
     </section>
 </div>
 
@@ -123,5 +127,11 @@
         driverRadio.addEventListener("change", toggleFileUploadInputs);  
 
     })
+
+    function confirmDeleteCarDetails() {
+        if(confirm("Are you sure you want to delete your car details?")) {
+            document.getElementById('deletecarform').submit();
+        }
+    }
 </script>
 {% endblock %}

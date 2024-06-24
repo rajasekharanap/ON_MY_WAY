@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password, check_password
@@ -225,6 +225,7 @@ def updateprofile(request):
             userfile.save()
 
             usercar, created = CarDetails.objects.get_or_create(usercar=user)
+            print(carmodelname, seatingcapacity)
             usercar.carmodelname =  carmodelname
             usercar.seatingcapacity= seatingcapacity
             if carimages:
@@ -342,6 +343,18 @@ def changepassword(request):
             return redirect('userprofile')
             
     return render(request, 'users/changepassword.html')
+
+@login_required
+def delete_car_details(request):
+    if request.method == 'POST':
+        car = CarDetails.objects.filter(usercar=request.user)
+        if car.exists():
+            car.delete()
+            messages.success(request, 'Your car details have been successfully deleted. Please add details for posting trips.')
+        else:
+            messages.error(request, 'No car details added. Please add details for posting trips. ')
+        return redirect('updateprofile')
+    return render(request, 'users/updateprofie.html')
 
 
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import TripDetails
@@ -9,24 +9,6 @@ from django.contrib import messages
 
 def post(request):
     return render(request, 'posttrip/posttrip.html')
-
-# @login_required
-# def validate_user(request):
-#     errors = []
-#     if request.user.usertype != 'driver':
-#         errors.append('Please update your usertype to driver for posting trip.')
-#     try:
-#         CarDetails.objects.get(usercar=request.user)
-#     except CarDetails.DoesNotExist:
-#         errors.append("Please add your car details for posting trip.")
-#     print(errors)
-#     if errors:
-#         for error in errors:
-#             messages.error(request, error)
-#         return render(request, 'posttrip/posttrip.html')
-#     return JsonResponse({'status': 'ok'})  
-
-
 
 def calculate_total_kilometers(seating_capacity, total_kms):
     if seating_capacity == 5:
@@ -65,7 +47,7 @@ def calculate_seat_price(request):
 
 
 @login_required
-def tripdetails(request):
+def posttrip(request):
     errors = [] 
     max_empty_seats = 0
     cardetails = None
@@ -75,7 +57,6 @@ def tripdetails(request):
 
         try:
             cardetails = CarDetails.objects.get(usercar=request.user)
-            max_empty_seats = cardetails.seatingcapacity - 1
         except CarDetails.DoesNotExist:
             errors.append('Please add your car details for posting trip.')
         
@@ -98,7 +79,7 @@ def tripdetails(request):
         if errors:
             for error in errors:
                 messages.error(request, error)
-            return redirect('tripdetails')
+            return render(request, 'posttrip/posttrip.html', {'max_empty_seats':max_empty_seats, 'updateprofile_url':reverse('updateprofile'), 'errors':errors})
 
         else:
             trip_details = TripDetails.objects.create(
@@ -117,3 +98,8 @@ def tripdetails(request):
             )
             return redirect(reverse('userprofile'))
     return render(request, 'posttrip/posttrip.html',{'max_empty_seats':max_empty_seats})
+
+
+def tripdetails(request, tripid):
+    tripdetails = get_object_or_404(TripDetails, id=tripid)
+    return render(request, 'posttrip/tripdetails.html', {'tripdetails':tripdetails})

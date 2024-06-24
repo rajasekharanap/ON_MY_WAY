@@ -514,6 +514,11 @@
 .userprofile_cost-details {
   margin-top: 90px;  
 }
+
+.userprofile_tripdetailslink{
+  text-decoration: none;
+  color: black;
+}
 /* userprofile.html styles */
 /* userprofile.html styles */
 

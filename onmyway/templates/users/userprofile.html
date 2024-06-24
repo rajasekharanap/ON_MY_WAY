@@ -14,6 +14,7 @@
         {% if posted_trips %}
             {% for trip in posted_trips %}
                 {% with car_image=car_images|first %}
+                <a href="{% url 'tripdetails' trip.id %}" class="userprofile_tripdetailslink">
                     <div class="userprofile_trip-container">
                         <div class="userprofile_trip-details">
                             <p>{{ trip.startingpoint }} to {{ trip.endpoint }}</p>
@@ -27,9 +28,10 @@
                         <div class="userprofile_cost-details">
                             <p>Cost Per Seat: ₹{{ trip.seatprice }}</p>
                             <p>Seats Available: {{ trip.emptyseats }}</p>
-                        </div>
+                        </div>  
                     </div>
-                    <br>
+                </a>
+                <br>
                 {% endwith %}
             {% endfor %}
         {% else %}
@@ -45,11 +47,10 @@
                     <p>{{ combined_trip.booked_trip.driver.fullname }}'s trip: {{ combined_trip.booked_trip.booking_date }}</p>
                     <p>Starting Point: {{ combined_trip.trip_details.startingpoint }}</p>
                     <p>Endpoint: {{ combined_trip.trip_details.endpoint }}</p>
-                    <p>Departure Date: {{ combined_trip.trip_details.departuredate }}</p>
-                    <p>Departure Time: {{ combined_trip.trip_details.departuretime }}</p>
                 </div>
                 <div class="userprofile_additional-details">
-                    <!-- Add additional details as needed -->
+                    <p>Departure Date: {{ combined_trip.trip_details.departuredate }}</p>
+                    <p>Departure Time: {{ combined_trip.trip_details.departuretime }}</p>
                 </div>
                 <div class="userprofile_cost-details">
                     <p>Total Price: ₹{{ combined_trip.booked_trip.total_price }}</p>
