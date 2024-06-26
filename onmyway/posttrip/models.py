@@ -14,3 +14,6 @@ class TripDetails(models.Model):
     kilometers = models.IntegerField(null=False)
     seatprice = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     description = models.TextField(null=False)
+
+    def __str__(self):
+        return f"Trip from {self.startingpoint} to {self.endpoint} by {self.driver.email}"

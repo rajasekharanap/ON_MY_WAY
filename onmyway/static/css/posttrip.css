@@ -159,6 +159,216 @@
   font-weight: bold;
   margin-top: 8px;
 }
+/* Styles of posttrip.html */
+/* Styles of posttrip.html */
 
-/* Styles of posttrip.html   */
-/* Styles of posttrip.html   */
+
+/* Styles of tripdetails.html   */
+/* Styles of tripdetails.html */
+.tripdetails_container {
+  width: 80%;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tripdetails_heading {
+  color: #2581c7;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.tripdetails_columns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tripdetails_left,
+.tripdetails_right {
+  width: 45%;
+  padding: 20px;
+  background-color: #f0f4f8;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tripdetails_left p,
+.tripdetails_right p {
+  font-size: 16px;
+  margin: 10px 0;
+  width: 100%;
+  text-align: center;  /* Center text within the containers */
+}
+
+.tripdetails_left p strong,
+.tripdetails_right p strong {
+  width: auto;  /* Adjust the width as needed */
+  text-align: left;
+  display: inline-block;
+}
+
+.tripdetails_left p span,
+.tripdetails_right p span {
+  width: auto;  /* Adjust the width as needed */
+  text-align: left;
+  display: inline-block;
+}
+
+.tripdetails_actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.tripdetails_button {
+  background-color: #2581c7;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.tripdetails_button a {
+  color: white;
+  text-decoration: none;
+}
+
+.tripdetails_button:hover {
+  background-color: #1f6fa8;
+  transform: scale(1.05);
+}
+
+/* .tripdetails_stats {
+  font-size: 16px;
+  margin: 20px 0;
+  text-align: center;
+  width: 100%;
+} */
+
+.tripdetails_passengers {
+  margin-top: 10px;
+  width: 50%;
+}
+
+.tripdetails_subheading {
+  margin-top: 30px;
+  color: #2581c7;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.tripdetails_passenger-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.tripdetails_passenger-list li {
+  font-size: 16px;
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #f0f4f8;
+  border-radius: 10px;
+}
+
+.tripdetails_no-passengers {
+  font-size: 16px;
+  color: #888;
+  text-align: center;
+  width: 100%;
+}
+
+.tripdetails_modal-center {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tripdetails_modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  top: 200px;
+  width: 50%; /* Full width */
+  height: 50%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  border-radius: 20px;
+}
+
+.tripdetails_modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+  border-radius: 10px;
+}
+
+.tripdetails_modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.tripdetails_modal-close:hover,
+.tripdetails_modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tripdetails_modal-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.tripdetails_modal-button-edit, 
+.tripdetails_modal-button-keep {
+
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.tripdetails_modal-button-keep {
+  background-color: green;
+}
+
+.tripdetails_modal-button-edit {
+  background-color: rgb(236, 11, 11);
+}
+
+.tripdetails_modal-button:hover {
+  background-color: #1f6fa8;
+  transform: scale(1.05);
+}
+/* Styles of tripdetails.html */
+/* Styles of tripdetails.html */

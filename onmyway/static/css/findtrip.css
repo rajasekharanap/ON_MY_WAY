@@ -116,16 +116,19 @@
     margin-top: 90px;  
   }
 
-  .findtrip_bookbutton {
+  .findtrip_bookbutton, .findtrip_bookbutton_blur {
     cursor: pointer;
     background-color: #2581c7;
     color: white;
     padding: 10px 20px;
     border: none;
-    color: white;
-    cursor: pointer;
     border-radius: 5px;
     margin-top: 80px;
+}
+
+.findtrip_bookbutton_blur {
+    cursor: not-allowed;
+    opacity: 0.5;
 }
 /* Styles for findtrip.html */
 /* Styles for findtrip.html */
@@ -144,6 +147,7 @@
   padding: 20px;
   border: 2px solid #ccc;
   border-radius: 10px;
+  margin-bottom: 30px;
 }
 
 .booking_heading {
@@ -175,6 +179,26 @@
   border: none;
   border-radius: 5px;
   margin-top: 20px;
+}
+
+.booking_total-amount {
+  background-color: #f8f9fa; 
+  border: 1px solid #ced4da;
+  border-radius: 5px; 
+  padding: 10px; 
+  margin-top: 10px; 
+  text-align: center; 
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #343a40;
+}
+
+.booking_total-amount p {
+  margin: 0; 
+}
+
+.booking_total_amount_box span {
+  color: #007bff; 
 }
 /* Styles for booking.html */
 /* Styles for booking.html */

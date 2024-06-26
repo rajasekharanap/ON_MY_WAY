@@ -7,9 +7,9 @@ class BookingTrip(models.Model):
     booking_time = models.TimeField()
     no_seats = models.IntegerField(default=1)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=False)
-    driver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='booked_trips_as_driver')
-    passengers = models.ManyToManyField(CustomUser, related_name='booked_trips_as_passenger')
-    car = models.ForeignKey(CarDetails, on_delete=models.CASCADE, related_name='booked_trips')
+    passenger = models.ForeignKey(CustomUser, on_delete=models.CASCADE,related_name='booked_trips_as_passenger')
+    car = models.ForeignKey(CarDetails, on_delete=models.CASCADE, related_name='booked_trip_car')
+    trip = models.ForeignKey(TripDetails, on_delete=models.CASCADE, related_name='bookings')    
 
     def __str__(self):
-        return f"Booking for Trip ID: {self.trip.id}"
+        return f"Booking by {self.passenger.email} for trip from {self.trip.startingpoint} to {self.trip.endpoint}"

@@ -30,7 +30,7 @@
                             {% if trip.driver.profilepicture %}
                                 <img src="{{ trip.driver.profilepicture.url }}" alt="Profile Photo" class="findtrip_profile-photo">
                             {% else %}
-                                <div class="default-profile-photo"></div> <!-- Add a default placeholder if no profile photo is available -->
+                                <img src="{% static 'images/default_profile_picture.png' %}" class="findtrip_profile-photo"> 
                             {% endif %}
                         </div>
                         <div class="findtrip_driver-info">
@@ -65,7 +65,11 @@
                     <div class="findtrip_cost-details">
                         <p>Cost Per Seat: ₹{{ trip.seatprice }}</p>
                         <p>Seats Available: {{ trip.emptyseats }}</p>
+                        {% if trip.emptyseats %}
                         <a href="{% url 'book' %}?trip_id={{ trip.id }}"><button type="button" class="findtrip_bookbutton">Book Trip</button></a>
+                        {% else %}
+                        <a href=""><button type="button" class="findtrip_bookbutton_blur" disabled>Book Trip</button></a>
+                        {% endif %}
                     </div>
                 </div>
                 <br>
@@ -89,5 +93,6 @@
       var startingPointSearchAutocomplete = new google.maps.places.Autocomplete(startingPointSearch, options);
       var endingPointSearchAutocomplete = new google.maps.places.Autocomplete(endingPointSearch, options);
   });
+
 </script>
 {% endblock %}

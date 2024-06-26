@@ -12,7 +12,7 @@
                 {% if selected_trip.driver.profilepicture %}
                     <img src="{{ selected_trip.driver.profilepicture.url }}" alt="Profile Photo" class="findtrip_profile-photo">
                 {% else %}
-                    <div class="default-profile-photo"></div> <!-- Add a default placeholder if no profile photo is available -->
+                    <img src="{% static 'images/default_profile_picture.png' %}" class="findtrip_profile-photo"> 
                 {% endif %}
             </div>
             <div class="findtrip_driver-info">
@@ -51,7 +51,32 @@
             <label for="no_seats">Number of Seats:</label>
             <input type="number" id="no_seats" name="no_seats" min="1" max="{{ selected_trip.emptyseats }}" required>
             <br>
+            <div class="booking_total-amount">
+                <p>Total Amount: ₹<span id="total-amount">0</span></p>
+            </div>
+            <br>
             <button type="submit" class="booking_button">Book Now</button>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const seats = document.getElementById('no_seats');
+            const totalamountspan = document.getElementById('total-amount');
+            const seat_price = {{ selected_trip.seatprice }};
+
+            function updateprice() {
+                var addedseats = parseInt(seats.value);
+                if(!isNaN(addedseats) && addedseats >= 1) {
+                    var temp = addedseats * seat_price;
+                    totalamountspan.textContent = temp;
+                }
+                else {
+                    totalamountspan.textContent = 0;
+                }
+            }
+            seats.addEventListener('input',updateprice);
+            seats.addEventListener('change',updateprice);
+        });
+    </script>
 {% endblock %}

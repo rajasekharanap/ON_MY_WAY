@@ -17,6 +17,7 @@
                         <a href="#" class="navbar_dropbtn"><i class="fas fa-caret-down" style="color: #ed6810;"></i>Hi, {{ user.fullname }}</a>
                         <div class="navbar_dropdown-content">
                             <a href="{% url 'userprofile' %}">Profile</a>
+                            <a href="{% url 'notifications' %}">Notifications</a>
                             <a href="{% url 'changepassword' %}">Change password</a>
                             <a href="{% url 'user_logout' %}">Logout</a>        
                         </div>

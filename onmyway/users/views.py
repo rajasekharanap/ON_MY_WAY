@@ -140,38 +140,19 @@ def user_login(request):
 @login_required
 def userprofile(request):
     posted_trips = TripDetails.objects.filter(driver=request.user)
-    booked_trips = BookingTrip.objects.filter(passengers=request.user)
-    car_images = []  # Collect the first car image for each posted trip
+    booked_trips = BookingTrip.objects.filter(passenger=request.user)
+    car_images = []
     for trip in posted_trips:
-        car_image = trip.car.image1.url  # Assuming image1 is the car image, adjust as needed
+        car_image = trip.car.image1.url  
         car_images.append(car_image)
     
-    # Retrieve trip details for each booked trip
     booked_trip_details = []
     for booked_trip in booked_trips:
-        trip_details = get_trip_details_for_booking(booked_trip.id)
-        if trip_details:
-            booked_trip_details.append({
-                'booked_trip': booked_trip,
-                'trip_details': trip_details
-            })
-
+        booked_trip_details.append({
+            'booked_trip': booked_trip,
+            'trip_details': booked_trip.trip
+        })
     return render(request, 'users/userprofile.html', {'posted_trips': posted_trips, 'car_images': car_images, 'booked_trip_details': booked_trip_details})
-    
-def get_trip_details_for_booking(booking_id):
-    try:
-        # Retrieve the BookingTrip object
-        booking_trip = BookingTrip.objects.get(id=booking_id)
-        
-        # Access the associated CarDetails
-        car_details = booking_trip.car
-        
-        # Retrieve the TripDetails associated with the CarDetails
-        trip_details = TripDetails.objects.filter(car=car_details).first()  # Assuming there's only one TripDetails per CarDetails
-        
-        return trip_details
-    except BookingTrip.DoesNotExist:  
-        return None
 
 @login_required
 def updateprofile(request):
@@ -356,5 +337,5 @@ def delete_car_details(request):
         return redirect('updateprofile')
     return render(request, 'users/updateprofie.html')
 
-
-
+def notifications(request):
+    return render(request, 'users/notifications.html')

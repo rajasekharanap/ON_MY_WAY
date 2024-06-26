@@ -2,23 +2,78 @@
 {% load static %}
 
 {% block content %}
-    <div class="tripdetails-container">
-        <h2>Trip Details</h2>
-        <div class="tripdetails-info">
-            <p>From: {{ tripdetails.startingpoint }}</p>
-            <p>To: {{ tripdetails.endpoint }}</p>
-            <p>Departure Date: {{ tripdetails.departuredate }}</p>
-            <p>Departure Time: {{ tripdetails.departuretime }}</p>
-            <p>Luggage Size: {{ tripdetails.luggagesize }}</p>
-            <p>Pets Allowed: {{ tripdetails.pets }}</p>
-            <p>Kilometers: {{ tripdetails.kilometers }}</p>
-            <p>Cost Per Seat: ₹{{ tripdetails.seatprice }}</p>
-            <p>Seats Available: {{ tripdetails.emptyseats }}</p>
-            <p>Description: {{ tripdetails.description }}</p>
+<div class="tripdetails_container">
+    <h2 class="tripdetails_heading">Trip Details</h2>
+    <div class="tripdetails_columns">
+        <div class="tripdetails_left">
+            <p><strong>From:</strong> {{ tripdetails.startingpoint }}</p>
+            <p><strong>Departure Date:</strong> {{ tripdetails.departuredate }}</p>
+            <p><strong>Luggage Size:</strong> {{ tripdetails.luggagesize }}</p>
+            <p><strong>Pets Allowed:</strong> {{ tripdetails.pets }}</p>
+            <p><strong>Total Seats:</strong> {{ total_seats_posted }}</p> 
+            <p><strong>Description:</strong> {{ tripdetails.description }}</p>
+            
         </div>
-        <div class="tripdetails-actions">
-            <button><a href="">Edit Trip</a></button>
-            <button><a href="">Cancel Trip</a></button>
+        <div class="tripdetails_right">
+            <p><strong>To:</strong> {{ tripdetails.endpoint }}</p>
+            <p><strong>Departure Time:</strong> {{ tripdetails.departuretime }}</p>
+            <p><strong>Kilometers:</strong> {{ tripdetails.kilometers }}</p>
+            <p><strong>Seats Available:</strong> {{ tripdetails.emptyseats }}</p>        
+            <p><strong>Cost Per Seat:</strong> ₹{{ tripdetails.seatprice }}</p>
+            <p><strong>Seats Booked:</strong> {{ total_seats_booked }}</p>
         </div>
     </div>
+    <div class="tripdetails_actions">
+        <a href="{% url 'edittrip' %}"><button class="tripdetails_button">Edit Trip</button></a>
+        <button class="tripdetails_button" id="cancel-trip-modal-button">Cancel Trip</button>
+    </div>
+    <!-- <p class="tripdetails_stats">You have a total of {{ total_seats_booked }} seats booked so far for this trip.</p>
+    <p class="tripdetails_stats">You have {{ tripdetails.emptyseats }} seats waiting for booking.</p> -->
+    <div class="tripdetails_passengers">
+        <h3 class="tripdetails_subheading">Passengers</h3>
+        {% if passengers_info %}
+        <ul class="tripdetails_passenger-list">
+            {% for passenger_info in passengers_info %}
+            <li>{{ passenger_info.passenger.fullname }} - Seats Booked: {{ passenger_info.seats_booked }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="tripdetails_no-passengers">No passengers have booked this trip yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="tripdetails_modal-center">
+    <div id="cancel-trip-modal" class="tripdetails_modal">
+        <div class="tripdetails_modal-content">
+            <span class="tripdetails_modal-close">&times;</span>
+            <p>Are you sure you want to cancel the trip?</p>
+        </div>
+        <div class="tripdetails_modal-actions">
+            <a href="{% url 'canceltrip' tripdetails.id %}"><button id="confirm-cancel" class="tripdetails_modal-button-edit">Yes, Cancel</button></a>
+            <button id="cancel-modal" class="tripdetails_modal-button-keep">No, Keep</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('cancel-trip-modal');
+        var btn = document.getElementById('cancel-trip-modal-button');
+        var span = document.getElementsByClassName('tripdetails_modal-close')[0];
+        var keepBtn = document.getElementById('cancel-modal');
+        
+        btn.onclick = function() {
+            modal.style.display = 'block';
+        }
+
+        span.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        keepBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+    });
+</script>
 {% endblock %}

@@ -5,6 +5,7 @@ from .models import TripDetails
 from users.models import CarDetails
 from django.http import JsonResponse
 from django.contrib import messages
+from findtrip.models import BookingTrip
 
 
 def post(request):
@@ -49,7 +50,7 @@ def calculate_seat_price(request):
 @login_required
 def posttrip(request):
     errors = [] 
-    max_empty_seats = 0
+    max_empty_seats = 6
     cardetails = None
     if request.method == 'POST':
         if request.user.usertype != 'driver':
@@ -62,7 +63,6 @@ def posttrip(request):
         
         if cardetails is not None:
             max_empty_seats = cardetails.seatingcapacity - 1
-        print(max_empty_seats)
 
         startingpoint = request.POST['startingpoint']
         endpoint = request.POST['ending-point']
@@ -75,6 +75,10 @@ def posttrip(request):
         print(kilometers)
         seatprice = request.POST['seat-price']
         description = request.POST.get('description')
+
+        carcapacity = cardetails.seatingcapacity
+        if int(emptyseats) > max_empty_seats:
+            errors.append(f'Your car seating capacity is {cardetails.seatingcapacity}')
 
         if errors:
             for error in errors:
@@ -102,4 +106,27 @@ def posttrip(request):
 
 def tripdetails(request, tripid):
     tripdetails = get_object_or_404(TripDetails, id=tripid)
-    return render(request, 'posttrip/tripdetails.html', {'tripdetails':tripdetails})
+    print(tripdetails.id, tripid)
+    bookings = BookingTrip.objects.filter(trip=tripdetails)
+    passengers_info = [{'passenger':booking.passenger, 'seats_booked':booking.no_seats} for booking in bookings]
+    total_seats_booked = sum(booking.no_seats for booking in bookings)
+    total_seats_posted = total_seats_booked + tripdetails.emptyseats
+    context = {
+        'tripdetails':tripdetails,
+        'passengers_info':passengers_info,
+        'total_seats_booked':total_seats_booked,
+        'total_seats_posted':total_seats_posted
+    }
+    return render(request, 'posttrip/tripdetails.html', context)
+
+def edittrip(request):
+    return render(request, 'posttrip/edittrip.html')
+
+@login_required
+def canceltrip(request, tripid):
+    trip = get_object_or_404(TripDetails, id=tripid)
+    trip.delete()
+    return redirect(reverse('userprofile'))
+
+
+

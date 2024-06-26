@@ -30,7 +30,6 @@ def book(request):
         # Get form data
         no_seats = int(request.POST.get('no_seats'))
         total_price = selected_trip.seatprice * no_seats
-        driver = selected_trip.driver
         car = selected_trip.car
 
         # Create BookingTrip object
@@ -39,19 +38,15 @@ def book(request):
             booking_time=timezone.now().time(),
             no_seats=no_seats,
             total_price=total_price,
-            driver=driver,
-            car=car
+            passenger = request.user,
+            car=car,
+            trip=selected_trip
         )
-
-        # Add the current user to the passengers field
-        booking.passengers.add(request.user)
 
         # Update available seats in selected trip
         selected_trip.emptyseats -= no_seats
         selected_trip.save()
-
-        messages.success(request, 'Booking successful!')
-        return redirect('find')  
+        return redirect(reverse('userprofile'))  
 
     else:
         trip_id = request.GET.get('trip_id')
