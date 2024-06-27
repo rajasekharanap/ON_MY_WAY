@@ -4,17 +4,31 @@ from .models import BookingTrip
 from django.contrib import messages
 from django.utils import timezone
 from django.urls import reverse
+from datetime import datetime
 
 def find(request):
     trip_details = None
     if request.method == 'POST':
         starting_point = request.POST.get('from')
         ending_point = request.POST.get('to')
-        
-        trip_details = TripDetails.objects.filter(
+        departure_date = request.POST.get('leaving')  
+
+        trip_query = TripDetails.objects.filter(
             startingpoint__icontains=starting_point,
             endpoint__icontains=ending_point,
-        ).select_related('driver', 'car')  
+            canceled=False
+        ).select_related('driver', 'car')
+        
+ 
+        if departure_date:
+            try:
+                departure_date = datetime.strptime(departure_date, '%Y-%m-%d').date()
+                print(departure_date)
+                trip_query = trip_query.filter(departuredate=departure_date)
+            except ValueError:
+                pass
+        
+        trip_details = trip_query
         
     return render(request, 'findtrip/findtrip.html', {'trip_details': trip_details})
 

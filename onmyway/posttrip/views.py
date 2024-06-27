@@ -83,7 +83,10 @@ def posttrip(request):
         if errors:
             for error in errors:
                 messages.error(request, error)
-            return render(request, 'posttrip/posttrip.html', {'max_empty_seats':max_empty_seats, 'updateprofile_url':reverse('updateprofile'), 'errors':errors})
+            return render(request, 'posttrip/posttrip.html', {
+                'max_empty_seats':max_empty_seats, 
+                'updateprofile_url':reverse('updateprofile'), 
+                'errors':errors})
 
         else:
             trip_details = TripDetails.objects.create(
@@ -98,7 +101,8 @@ def posttrip(request):
                 emptyseats = emptyseats,
                 kilometers = kilometers,
                 seatprice = seatprice,
-                description = description
+                description = description,
+                canceled = False
             )
             return redirect(reverse('userprofile'))
     return render(request, 'posttrip/posttrip.html',{'max_empty_seats':max_empty_seats})
@@ -119,13 +123,48 @@ def tripdetails(request, tripid):
     }
     return render(request, 'posttrip/tripdetails.html', context)
 
-def edittrip(request):
-    return render(request, 'posttrip/edittrip.html')
+@login_required
+def edittrip(request,tripid):
+    trip = get_object_or_404(TripDetails, id=tripid)
+
+    bookings = BookingTrip.objects.filter(trip=trip)
+    if bookings.exists():
+        messages.error(request,'Sorry, editing is disabled for this trip as it has confirmed bookings. Please cancel your trip to post a new one.')
+        return redirect(reverse('tripdetails', args=[trip.id]))
+    
+    if request.method == 'POST':
+        startingpoint = request.POST['startingpoint']
+        endpoint = request.POST['ending-point']
+        departuredate = request.POST['departure-date']
+        departuretime = request.POST['departure-time']
+        luggagesize = request.POST['luggage-size']
+        pets = request.POST['pets-allowed']
+        emptyseats = request.POST['empty-seats']
+        kilometers = request.POST['kilometers']
+        seatprice = request.POST['seat-price']
+        description = request.POST.get('description')
+
+        trip.startingpoint = startingpoint
+        trip.endpoint = endpoint
+        trip.departuredate = departuredate
+        trip.departuretime = departuretime
+        trip.luggagesize = luggagesize
+        trip.pets = pets
+        trip.emptyseats = emptyseats
+        trip.kilometers = kilometers
+        trip.seatprice = seatprice
+        trip.description = description
+        trip.save()
+
+        return redirect(reverse('tripdetails', args=[trip.id]))
+
+    return render(request, 'posttrip/edittrip.html', {'trip': trip})
 
 @login_required
 def canceltrip(request, tripid):
     trip = get_object_or_404(TripDetails, id=tripid)
-    trip.delete()
+    trip.canceled = True
+    trip.save()
     return redirect(reverse('userprofile'))
 
 

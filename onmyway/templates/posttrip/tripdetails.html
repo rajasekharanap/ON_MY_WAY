@@ -3,6 +3,12 @@
 
 {% block content %}
 <div class="tripdetails_container">
+    {% for message in messages %}
+        <div class="posttrip_alert alert-{{ message.tags }}">
+            <strong>Sorry!</strong> {{ message }}
+            <button class="posttrip_close-btn" aria-label="Close">×</button>
+        </div>
+        {% endfor %}
     <h2 class="tripdetails_heading">Trip Details</h2>
     <div class="tripdetails_columns">
         <div class="tripdetails_left">
@@ -24,11 +30,9 @@
         </div>
     </div>
     <div class="tripdetails_actions">
-        <a href="{% url 'edittrip' %}"><button class="tripdetails_button">Edit Trip</button></a>
+        <a href="{% url 'edittrip' tripdetails.id %}"><button class="tripdetails_button">Edit Trip</button></a>
         <button class="tripdetails_button" id="cancel-trip-modal-button">Cancel Trip</button>
     </div>
-    <!-- <p class="tripdetails_stats">You have a total of {{ total_seats_booked }} seats booked so far for this trip.</p>
-    <p class="tripdetails_stats">You have {{ tripdetails.emptyseats }} seats waiting for booking.</p> -->
     <div class="tripdetails_passengers">
         <h3 class="tripdetails_subheading">Passengers</h3>
         {% if passengers_info %}
@@ -75,5 +79,18 @@
             modal.style.display = 'none';
         }
     });
+
+    const closeButtons = document.querySelectorAll('.posttrip_close-btn');
+    // Add event listener to each close button
+    closeButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            // Find the parent alert div and remove it
+            const alertDiv = btn.closest('.posttrip_alert');
+            if (alertDiv) {
+                alertDiv.parentNode.removeChild(alertDiv);
+            }
+        });
+    });
+
 </script>
 {% endblock %}

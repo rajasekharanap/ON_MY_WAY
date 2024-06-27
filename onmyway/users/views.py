@@ -141,6 +141,8 @@ def user_login(request):
 def userprofile(request):
     posted_trips = TripDetails.objects.filter(driver=request.user)
     booked_trips = BookingTrip.objects.filter(passenger=request.user)
+    canceled_trips = posted_trips.filter(canceled=True)
+    posted_trips = posted_trips.filter(canceled=False)
     car_images = []
     for trip in posted_trips:
         car_image = trip.car.image1.url  
@@ -152,7 +154,11 @@ def userprofile(request):
             'booked_trip': booked_trip,
             'trip_details': booked_trip.trip
         })
-    return render(request, 'users/userprofile.html', {'posted_trips': posted_trips, 'car_images': car_images, 'booked_trip_details': booked_trip_details})
+    return render(request, 'users/userprofile.html', {
+        'posted_trips': posted_trips,
+        'car_images': car_images, 
+        'booked_trip_details': booked_trip_details,
+        'canceled_trips':canceled_trips})
 
 @login_required
 def updateprofile(request):

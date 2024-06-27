@@ -2,5 +2,203 @@
 {% load static %}
 
 {% block content %}
-edit
+    <div class="posttrip_container">
+        <div class="posttrip_left-section">
+            <h2 class="posttrip_heading">Edit Trip</h2>
+            {% for message in messages %}
+            <div class="posttrip_alert alert-{{ message.tags }}">
+                <strong>Sorry!</strong> {{ message }}
+                <button class="posttrip_close-btn" aria-label="Close">×</button>
+            </div>
+            {% endfor %}
+            <form class="posttrip_form" method="POST" action="{% url 'edittrip' trip.id %}">
+                {% csrf_token %}
+                <label for="starting-point">Starting Point:</label><br>
+                <input type="text" id="starting-point" name="startingpoint" value="{{ trip.startingpoint }}" required autocomplete="off"><br>
+                <label for="ending-point">Ending Point:</label><br>
+                <input type="text" id="ending-point" name="ending-point" value="{{ trip.endpoint }}" required autocomplete="off"><br>
+                <label for="departure-date">Departure Date:</label><br>
+                <input type="date" id="departure-date" name="departure-date" value="{{ trip.departuredate }}" required><br>
+                <label for="departure-time">Departure Time:</label><br>
+                <select id="departure-time" name="departure-time" required>
+                    <option value="">Select Departure Time</option>
+                    {% for time in departure_times %}
+                        <option value="{{ time }}" {% if time == trip.departuretime %}selected{% endif %}>{{ time }}</option>
+                    {% endfor %}
+                </select><br>
+                <div class="posttrip_luggage-wrapper">
+                    <div class="posttrip_luggage-row">
+                        <label for="luggage-size">Luggage Size:</label>
+                        <select id="luggage-size" name="luggage-size">
+                            <option value="No" {% if trip.luggagesize == "No" %}selected{% endif %}>No Luggage</option>
+                            <option value="S" {% if trip.luggagesize == "S" %}selected{% endif %}>Small</option>
+                            <option value="M" {% if trip.luggagesize == "M" %}selected{% endif %}>Medium</option>
+                            <option value="L" {% if trip.luggagesize == "L" %}selected{% endif %}>Large</option>
+                        </select><br>
+                    </div>
+                    <div class="posttrip_pets-row">
+                        <label for="pets-allowed">Pets Allowed:</label><br>
+                        <input type="radio" id="pets-allowed-yes" name="pets-allowed" value="Yes" {% if trip.pets == "Yes" %}checked{% endif %}>
+                        <label for="pets-allowed-yes">Yes</label>
+                        <input type="radio" id="pets-allowed-no" name="pets-allowed" value="No" {% if trip.pets == "No" %}checked{% endif %}>
+                        <label for="pets-allowed-no">No</label><br>
+                    </div>
+                </div>
+                <input type="hidden" name="kilometers" id="kilometers">
+                <label for="empty-seats">Empty seats:</label><br>
+                <input type="number" id="empty-seats" name="empty-seats" value="{{ trip.emptyseats }}" min=1 max=6 required><br>
+                <label for="seat-price">Seat Price:</label><br>
+                <input type="number" id="seat-price" name="seat-price" value="{{ trip.seatprice }}" min=1 required><br>
+                <label for="description">Description:</label><br>
+                <input type="text" id="description" name="description" value="{{ trip.description }}"><br>
+                <button class="posttrip_post-trip-btn">Update Trip</button>
+            </form>
+        </div>
+        <div class="posttrip_right-section">
+            <div class="posttrip_map" id="map"></div>
+            <div class="posttrip_route-info" id="route-info"></div>
+        </div>
+    </div>
+
+    <script>
+        //Calling places api for suggesting places when user types values
+        document.addEventListener('DOMContentLoaded', function () {
+          var startingPointInput = document.querySelector('#starting-point');
+            var endingPointInput = document.querySelector('#ending-point');
+            var options = {
+                types: ['geocode'],
+                componentRestrictions: { country: 'in' } // Restrict to India
+            };
+          
+            var startingPointAutocomplete = new google.maps.places.Autocomplete(startingPointInput, options);
+            var endingPointAutocomplete = new google.maps.places.Autocomplete(endingPointInput, options);
+          });
+  
+  
+        //For displaying map as intial state
+        function initMap() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: 9.9312, lng: 76.2673}, // Default center (Kochi, India) 
+              zoom: 8 // Default zoom level
+            });
+            return map;
+        }
+  
+        // Function to calculate and display the route
+      function calculateAndDisplayRoute(map) {
+          var directionsService = new google.maps.DirectionsService();
+          var directionsDisplay = new google.maps.DirectionsRenderer({ map: map });
+          
+          var start = document.getElementById('starting-point').value;
+          var end = document.getElementById('ending-point').value;
+          
+          directionsService.route({
+              origin: start,
+              destination: end,
+              travelMode: 'DRIVING'
+          }, function(response, status) {
+              if (status === 'OK') {
+                  directionsDisplay.setDirections(response);
+  
+                  // Extract route distance and duration
+                  var route = response.routes[0];
+                  var distance = route.legs[0].distance.text;
+                  var duration = route.legs[0].duration.text;
+  
+                  // Display route distance and duration
+                  var routeInfo = document.getElementById('route-info');
+                  routeInfo.innerHTML = 'Total route is ' + distance + ' with average time ' + duration;
+  
+                  // Get the total distance from the route info div
+                  var total_kms = parseInt(distance.match(/\d+/)); // Extract only integer part
+  
+                  // Make sure total_kms is a valid number
+                  if (!isNaN(total_kms)) {
+                      document.getElementById('kilometers').value = total_kms;
+                      // Make an AJAX request to fetch the seat price
+                      fetch('{% url 'calculate_seat_price' %}?total_kms=' + total_kms)
+                      .then(response => response.json())
+                      .then(data => {
+                          // Update the seat price input box with the calculated seat price
+                          document.getElementById('seat-price').value = data.seat_price;
+                      })
+                      .catch(error => console.error('Error:', error));
+                  } else {
+                      console.error('Invalid total distance:', distance);
+                  }
+              } else {
+                  window.alert('Please enter valid starting and ending points.');
+              }
+          });
+      }
+  
+      // Event listener for mouseout on ending point input
+      document.getElementById('ending-point').addEventListener('mouseout', function() {
+          if (document.getElementById('starting-point').value && document.getElementById('ending-point').value) {
+              var map = initMap();
+              calculateAndDisplayRoute(map);
+          }
+      });
+  
+      // Event listener for input change on starting point
+      document.getElementById('starting-point').addEventListener('mouseout', function() {
+          if (document.getElementById('starting-point').value && document.getElementById('ending-point').value) {
+              var map = initMap();
+              calculateAndDisplayRoute(map);
+          }
+      });
+  
+          
+      //For showing dates from today onwards
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var yyyy = today.getFullYear();
+      today = yyyy + '-' + mm + '-' +dd
+      document.getElementById('departure-date').setAttribute('min', today);
+  
+      //For listing out departure time options as a list
+      // Get the departure time select element
+      var departureTimeSelect = document.getElementById('departure-time');
+      // Function to add leading zeros to single-digit numbers
+      function addLeadingZero(number) {
+        return number < 10 ? '0' + number : number.toString();
+      }
+      // Loop to generate options for every 15 minutes
+      // Loop to generate options for every 15 minutes
+    for (var hour = 0; hour < 24; hour++) {
+      for (var minute = 0; minute < 60; minute += 15) {
+          // Format the hour and minute
+          var formattedHour = addLeadingZero(hour);
+          var formattedMinute = addLeadingZero(minute);
+          
+          // Determine AM/PM
+          var ampm = hour < 12 ? 'AM' : 'PM';
+          
+          // Convert hour to 12-hour format
+          var displayHour = hour % 12 || 12;
+          
+          // Create option element
+          var option = document.createElement('option');
+          option.value = formattedHour + ':' + formattedMinute + ' ' + ampm;
+          option.textContent = displayHour + ':' + formattedMinute + ' ' + ampm; // Include AM/PM in the text content
+          
+          // Append option to select element
+          departureTimeSelect.appendChild(option);
+      }
+  }
+  
+    const closeButtons = document.querySelectorAll('.posttrip_close-btn');
+      // Add event listener to each close button
+      closeButtons.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+              // Find the parent alert div and remove it
+              const alertDiv = btn.closest('.posttrip_alert');
+              if (alertDiv) {
+                  alertDiv.parentNode.removeChild(alertDiv);
+              }
+          });
+      });
+  
+    </script>
 {% endblock %}
