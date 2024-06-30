@@ -6,6 +6,7 @@ import re
 from .models import CustomUser, UserFiles, CarDetails
 from posttrip.models import TripDetails
 from findtrip.models import BookingTrip
+from otherpages.models import Notifications
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from dotenv import load_dotenv
@@ -101,7 +102,10 @@ def register(request):
                 carmodelname = request.POST.get('carmodelname')
                 seatingcapacity = request.POST.get('cartype')
                 carimages = request.FILES.getlist('carimages', None)
-                cardetails = CarDetails.objects.create(usercar=user, carmodelname=carmodelname, seatingcapacity=seatingcapacity)
+                cardetails = CarDetails.objects.create(
+                    usercar=user, 
+                    carmodelname=carmodelname, 
+                    seatingcapacity=seatingcapacity)
 
                 for index, image in enumerate(carimages):
                     if index == 0:
@@ -113,7 +117,7 @@ def register(request):
                     else:
                         break
                 cardetails.save()
-
+            Notifications.registration_notification(user)
             return redirect('login')
     return render(request, 'users/register.html')
 
@@ -343,5 +347,3 @@ def delete_car_details(request):
         return redirect('updateprofile')
     return render(request, 'users/updateprofie.html')
 
-def notifications(request):
-    return render(request, 'users/notifications.html')

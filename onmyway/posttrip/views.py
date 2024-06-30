@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import TripDetails
 from users.models import CarDetails
+from otherpages.models import Notifications
 from django.http import JsonResponse
 from django.contrib import messages
 from findtrip.models import BookingTrip
@@ -104,6 +105,7 @@ def posttrip(request):
                 description = description,
                 canceled = False
             )
+            Notifications.posttrip_notification(request.user, trip_details)
             return redirect(reverse('userprofile'))
     return render(request, 'posttrip/posttrip.html',{'max_empty_seats':max_empty_seats})
 

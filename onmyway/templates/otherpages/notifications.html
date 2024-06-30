@@ -1,0 +1,21 @@
+{% extends 'common.html' %}
+{% load static %}
+
+{% block content %}
+<div class="notifications_container">
+    <h2 class="notifications_heading"><i class="fas fa-bell"></i> Notifications</h2>
+    <div class="notifications_list">
+        {% for notification in notifications %}
+        <div class="notifications_item {% if not notification.is_read %}unread{% endif %}">
+            <div class="notifications_icon"><i class="fas fa-bell"></i></div>
+            <div class="notifications_details">
+                <p class="notifications_message">{{ notification.message }}</p>
+                <p class="notifications_time">{{ notification.created_at|timesince }} ago</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No notifications available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

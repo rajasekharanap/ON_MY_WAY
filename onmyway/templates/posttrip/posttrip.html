@@ -124,7 +124,9 @@
                     .then(response => response.json())
                     .then(data => {
                         // Update the seat price input box with the calculated seat price
-                        document.getElementById('seat-price').value = data.seat_price;
+                        var seatpriceinput = document.getElementById('seat-price');
+                        seatpriceinput.value = data.seat_price;
+                        seatpriceinput.max = data.seat_price;
                     })
                     .catch(error => console.error('Error:', error));
                 } else {

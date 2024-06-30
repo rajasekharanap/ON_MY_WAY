@@ -108,4 +108,58 @@
 /* working.html styles*/
 /* working.html styles*/
   
-  
+/* notifications.html styles */
+/* notifications.html styles */
+.notifications_container {
+  width: 80%;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: #dcd4d4;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 150px;
+}
+
+.notifications_heading {
+  color: #2581c7;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.notifications_list {
+  width: 100%;
+}
+
+.notifications_item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.notifications_icon {
+  font-size: 24px;
+  margin-right: 15px;
+  color: #2581c7;
+}
+
+.notifications_details {
+  flex: 1;
+}
+
+.notifications_message {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.notifications_time {
+  color: #888;
+  font-size: 12px;
+}
+/* notifications.html styles */
+/* notifications.html styles */

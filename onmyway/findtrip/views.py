@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from posttrip.models import TripDetails
 from .models import BookingTrip
+from otherpages.models import Notifications
 from django.contrib import messages
 from django.utils import timezone
 from django.urls import reverse
@@ -60,6 +61,9 @@ def book(request):
         # Update available seats in selected trip
         selected_trip.emptyseats -= no_seats
         selected_trip.save()
+
+        Notifications.passenger_booktrip_notification(request.user, selected_trip)
+        Notifications.driver_booktrip_notification(selected_trip.driver, booking)
         return redirect(reverse('userprofile'))  
 
     else:
