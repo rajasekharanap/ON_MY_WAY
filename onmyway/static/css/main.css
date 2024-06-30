@@ -1,7 +1,30 @@
 /* common.html styles */
 /* common.html styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .contents {
-    margin-top: 80px; /* Adjust the margin-top to create space between the navbar and content */
+    flex: 1;
+    margin-top: 80px;
+}
+
+.foot {
+    background-color: white;
+    border-top: 1px solid #ddd;
+    width: 100%;
+}
+
+.foot {
+    flex-shrink: 0; /* Prevent footer from shrinking */
 }
 /* common.html styles */
 /* common.html styles */
@@ -108,7 +131,87 @@
 .navbar_dropdown:hover .navbar_dropdown-content {
     display: block;
 }
-
-
 /* navbar.html styles */
 /* navbar.html styles */
+
+
+/* footer.html styles */
+/* footer.html styles */
+/* footer.html styles */
+.footer {
+    background-color: white;
+}
+
+.footer_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer_left, .footer_center {
+    flex: 1;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer_logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #ed6810;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-bottom: 20px;
+}
+
+.footer_logo a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer_socials {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.footer_socials li {
+    margin: 0 10px;
+    font-size: 30px;
+}
+
+.footer_socials a {
+    color: #000;
+    text-decoration: none;
+}
+
+.footer_navlinks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer_navlinks li {
+    margin: 10px 15px;
+    font-size: 18px;
+}
+
+.footer_navlinks a {
+    text-decoration: none;
+    color: #000;
+    font-weight: normal;
+}
+
+.footer_navlinks li a i {
+    margin-right: 5px;
+}
+
+.footer_navlinks li a i, .footer_socials a i {
+    color: #ed6810;
+}
+/* footer.html styles */
+/* footer.html styles */
+/* footer.html styles */

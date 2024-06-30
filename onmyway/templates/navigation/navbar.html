@@ -14,7 +14,7 @@
                 <li><a href="/working"><i class="fas fa-car" style="color: #ed6810;"></i> How it works</a></li>
                 {% if user.is_authenticated %}
                     <li class="navbar_dropdown">
-                        <a href="#" class="navbar_dropbtn"><i class="fas fa-caret-down" style="color: #ed6810;"></i>Hi, {{ user.fullname }}</a>
+                        <a href="#" class="navbar_dropbtn"><i class="fas fa-caret-down" style="color: #ed6810;"></i>Welcome</a>
                         <div class="navbar_dropdown-content">
                             <a href="{% url 'userprofile' %}">Profile</a>
                             <a href="{% url 'notifications' %}">Notifications</a>
