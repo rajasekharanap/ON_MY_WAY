@@ -23,13 +23,19 @@ class Notifications(models.Model):
 
     @classmethod
     def passenger_booktrip_notification(cls, passenger, trip):
-        message = f"You have successfully booked a trip from {trip.startingpoint} to {trip.endpoint} on {trip.departuredate}. Contact your driver {trip.driver.name} through {trip.driver.email} or {trip.driver.phone}."
+        message = f"You have successfully booked a trip from {trip.startingpoint} to {trip.endpoint} on {trip.departuredate}. Contact your driver {trip.driver.fullname} through {trip.driver.email} or {trip.driver.phone}."
         cls.objects.create(user=passenger, message=message)
 
     @classmethod
     def driver_booktrip_notification(cls, driver, booking):
-        message = f"You trip from {booking.trip.startingpoint} to {booking.trip.endpoint} on {booking.trip.departuredate} has been booked by {booking.passenger.name}. Contact your passenger through {booking.passenger.email} or {booking.passenger.phone}."
+        message = f"You trip from {booking.trip.startingpoint} to {booking.trip.endpoint} on {booking.trip.departuredate} has been booked by {booking.passenger.fullname}. Contact your passenger through {booking.passenger.email} or {booking.passenger.phone}."
         cls.objects.create(user=driver, message=message)
 
+    @classmethod
+    def passenger_review_notifications(cls, passenger, trip):
+        message = f"Hey {passenger.fullname} how was your last trip from {trip.startingpoint} {trip.endpoint}. Please leave your feedback to help your host {trip.driver} earn more stars"
+        print(message)
+        cls.objects.create(user=passenger, message=message)
+    
     
 
