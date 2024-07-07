@@ -5,7 +5,7 @@ from users.models import CustomUser
 class Notifications(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='notifications')
     message = models.TextField()
-    created_at = models.DateTimeField(default=timezone.now())
+    created_at = models.DateTimeField(default=timezone.now)
     is_read = models.BooleanField(default=False)
 
     def __str__(self) -> str:
